@@ -1,42 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-    --color-porcelain: #eeeae2;
-    --color-porcelain-50: #f8f6f1;
-    --color-porcelain-100: #f1eee7;
-    --color-ink: #12130f;
-    --color-ink-soft: #1c1e19;
-    --color-pine: #23322b;
-    --color-pine-light: #35473e;
-    --color-sage: #8ca593;
-    --color-sage-light: #b7c9bc;
-    --color-sage-dark: #5f7568;
-    --color-gold: #b8935b;
-    --color-gold-light: #d4b483;
-    --color-gold-dark: #8f7040;
-    --color-mist: #e4e2da;
-    --color-mist-dark: #d6d3c6;
+    --color-porcelain: #FBF9F5;
+    --color-porcelain-50: #FFFFFF;
+    --color-porcelain-100: #F4F0E8;
+    --color-ink: #0D1612;
+    --color-ink-soft: #1D2A24;
+    --color-pine: #0D2820;
+    --color-pine-light: #184236;
+    --color-sage: #8CA593;
+    --color-sage-light: #C2D4C7;
+    --color-sage-dark: #4A6352;
+    --color-gold: #C6A066;
+    --color-gold-light: #E8D4B5;
+    --color-gold-dark: #9A753C;
+    --color-mist: #EAE6DD;
+    --color-mist-dark: #D4CEBF;
 
     --font-display: var(--font-fraunces);
     --font-sans: var(--font-inter);
     --font-mono: var(--font-plex-mono);
 
-    --shadow-premium: 0 20px 60px -15px rgb(18 19 15 / 0.18);
-    --shadow-card: 0 8px 30px -10px rgb(18 19 15 / 0.14);
+    --shadow-premium: 0 24px 64px -16px rgba(13, 40, 32, 0.16);
+    --shadow-card: 0 10px 32px -10px rgba(13, 40, 32, 0.08);
+    --shadow-glow: 0 0 40px -10px rgba(198, 160, 102, 0.35);
 
     --animate-float: float 6s ease-in-out infinite;
-    --animate-float-slow: float 9s ease-in-out infinite 1.2s;
+    --animate-float-slow: float 9s ease-in-out infinite 1.5s;
+    --animate-pulse-subtle: pulse-subtle 3s ease-in-out infinite;
 }
 
 @keyframes float {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0px);
     }
-
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes pulse-subtle {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
     }
 }
 
@@ -47,9 +55,9 @@
     }
 
     body {
-        font-feature-settings:
-            "ss01" 1,
-            "cv01" 1;
+        font-feature-settings: "ss01" 1, "cv01" 1;
+        background-color: var(--color-porcelain);
+        color: var(--color-ink);
     }
 
     ::selection {
@@ -63,7 +71,7 @@
     }
 
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 8px;
     }
 
     ::-webkit-scrollbar-track {
@@ -73,7 +81,6 @@
     ::-webkit-scrollbar-thumb {
         background: var(--color-mist-dark);
         border-radius: 999px;
-        border: 2px solid var(--color-porcelain);
     }
 }
 
@@ -81,26 +88,23 @@
     text-wrap: balance;
 }
 
-@utility bg-blueprint {
-    background-image:
-        linear-gradient(to right, var(--color-ink) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--color-ink) 1px, transparent 1px);
-    background-size: 56px 56px;
+@utility glass-panel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-@utility bg-grain {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 240px 240px;
+@utility glass-panel-dark {
+    background: rgba(13, 40, 32, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+@utility bg-grid-pattern {
+    background-image: 
+        linear-gradient(to right, rgba(13, 40, 32, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(13, 40, 32, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
 }

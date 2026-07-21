@@ -1,77 +1,121 @@
+export type TreatmentCategory = 'cosmetic' | 'restorative' | 'orthodontics' | 'preventive';
+
 export interface NavItem {
   label: string;
   href: string;
 }
 
-export interface HeroStat {
-  value: string;
-  label: string;
+export interface Doctor {
+  id: string;
+  name: string;
+  title: string;
+  specialty: string;
+  qualifications: string;
+  image: string;
+  bio: string;
+  experienceYears: number;
+  availability: string;
 }
 
-export interface CtaLink {
-  label: string;
-  href: string;
-}
-
-export interface BusinessHour {
-  day: string;
-  time: string;
-}
-
-export interface SocialLink {
-  platform: string;
-  href: string;
-}
-
-export interface Address {
-  line1: string;
-  line2: string;
-  mapUrl: string;
-}
-
-export interface ContactInfo {
-  phone: string;
-  phoneDisplay: string;
-  email: string;
-  address: Address;
-}
-
-export interface Logo {
-  mark: string;
-  wordmark: string;
-  wordmarkSuffix: string;
-}
-
-export interface TrustBadge {
-  rating: string;
-  reviewCount: string;
-}
-
-export interface HeroContent {
-  eyebrow: string;
-  headline: string[];
+export interface Service {
+  id: string;
+  name: string;
+  category: TreatmentCategory;
+  tag: string;
   description: string;
-  primaryCta: CtaLink;
-  secondaryCta: CtaLink;
-  stats: HeroStat[];
-  trustBadge: TrustBadge;
-  availabilityNote: string;
+  priceRange: string;
+  estimatedPrice: number; // For cost calculator
+  duration: string;
+  features: string[];
+  popular?: boolean;
 }
 
-export interface SiteConfig {
+export interface SmileTransformation {
+  id: string;
+  title: string;
+  treatment: string;
+  duration: string;
+  beforeImage: string;
+  afterImage: string;
+  patientQuote: string;
+  doctorName: string;
+}
+
+export interface Amenity {
+  title: string;
+  description: string;
+  iconName: string;
+}
+
+export interface Testimonial {
+  id: string;
+  patientName: string;
+  rating: number;
+  treatment: string;
+  comment: string;
+  date: string;
+  verified: boolean;
+  avatarUrl?: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+  category: 'general' | 'pricing' | 'treatments' | 'first-visit';
+}
+
+export interface ClinicHours {
+  day: string;
+  hours: string;
+}
+
+export interface ClinicConfig {
+  id: string;
   name: string;
   shortName: string;
-  domain: string;
   url: string;
   tagline: string;
   description: string;
-  logo: Logo;
-  contact: ContactInfo;
-  hours: BusinessHour[];
-  social: SocialLink[];
-  cta: {
-    bookLabel: string;
-    callLabel: string;
+  establishedYear: number;
+  logo: {
+    mark: string;
+    wordmark: string;
+    wordmarkSuffix: string;
   };
-  hero: HeroContent;
+  contact: {
+    phone: string;
+    phoneDisplay: string;
+    emergencyPhone: string;
+    email: string;
+    address: {
+      street: string;
+      suite: string;
+      cityStateZip: string;
+      mapUrl: string;
+    };
+  };
+  hours: ClinicHours[];
+  theme: {
+    primaryColor: string;
+    accentColor: string;
+    heroStyle: 'luxury' | 'modern' | 'minimal';
+  };
+  hero: {
+    eyebrow: string;
+    headline: string[];
+    description: string;
+    trustBadge: {
+      rating: string;
+      reviewCount: string;
+      platform: string;
+    };
+    availabilityNote: string;
+    stats: Array<{ value: string; label: string }>;
+  };
+  doctors: Doctor[];
+  services: Service[];
+  transformations: SmileTransformation[];
+  amenities: Amenity[];
+  testimonials: Testimonial[];
+  faqs: FAQItem[];
 }

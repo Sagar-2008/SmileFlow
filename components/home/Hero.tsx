@@ -1,237 +1,185 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
-import { siteConfig } from "@/config/site";
-import Button from "@/components/ui/Button";
+import { motion } from "framer-motion";
+import { Star, ShieldCheck, ArrowRight, Calculator, CheckCircle2, Clock } from "lucide-react";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
+import type { ClinicConfig } from "@/types/site";
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-  },
-};
+interface HeroProps {
+  config: ClinicConfig;
+  onOpenBooking: (serviceId?: string) => void;
+}
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-export default function Hero() {
-  const reduceMotion = useReducedMotion();
-  const { hero } = siteConfig;
+export default function Hero({ config, onOpenBooking }: HeroProps) {
+  const { hero, contact } = config;
 
   return (
-    <section className="relative overflow-hidden bg-porcelain pb-12 pt-28 sm:pb-16 sm:pt-32 lg:pb-24 lg:pt-36">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="bg-blueprint absolute inset-0 opacity-[0.05]" />
-        <div className="bg-grain absolute inset-0 opacity-[0.035] mix-blend-multiply" />
-        <div className="absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-sage/25 blur-[120px]" />
-        <div className="absolute -right-32 top-52 h-[380px] w-[380px] rounded-full bg-gold/20 blur-[130px]" />
-      </div>
+    <section className="relative overflow-hidden bg-porcelain pt-28 pb-16 lg:pt-36 lg:pb-24 border-b border-mist-dark/30">
+      {/* Background Ambient Glows & Grid */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+      <div className="absolute top-1/4 -left-32 w-[450px] h-[450px] rounded-full bg-sage-light/20 blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full bg-gold-light/20 blur-[140px] pointer-events-none" />
 
-      <Container className="relative">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-12">
+      <Container className="relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column: Copy & Value Proposition */}
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="lg:col-span-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 flex flex-col items-start"
           >
-            <motion.div
-              variants={itemVariants}
-              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-porcelain-50 px-4 py-1.5"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-gold-dark" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/60">
+            {/* Top Pill Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pine/5 border border-pine/10 text-pine mb-6">
+              <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+              <span className="text-xs font-mono tracking-wider uppercase font-semibold">
                 {hero.eyebrow}
               </span>
-            </motion.div>
+            </div>
 
-            <h1 className="font-display text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] tracking-tight text-ink">
-              {hero.headline.map((line, index) => (
-                <motion.span key={line} variants={itemVariants} className="block">
-                  {index === hero.headline.length - 1 ? (
-                    <span className="italic text-pine">{line}</span>
-                  ) : (
-                    line
-                  )}
-                </motion.span>
-              ))}
+            {/* Main Title */}
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-pine font-bold leading-[1.08] mb-6">
+              {hero.headline[0]}{" "}
+              <span className="italic font-normal text-gold-dark">
+                {hero.headline[1]}
+              </span>{" "}
+              {hero.headline[2]}
             </h1>
 
-            <motion.p
-              variants={itemVariants}
-              className="text-balance mt-6 max-w-lg text-base leading-relaxed text-ink/70 sm:text-lg"
-            >
+            {/* Description */}
+            <p className="text-base sm:text-lg text-ink/70 leading-relaxed max-w-2xl mb-8">
               {hero.description}
-            </motion.p>
+            </p>
 
-            <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
               <Button
-                href={hero.primaryCta.href}
+                variant="gold"
                 size="lg"
-                icon={<ArrowRight className="h-4 w-4" strokeWidth={1.75} />}
+                onClick={() => onOpenBooking()}
+                icon={<ArrowRight className="w-4 h-4 text-ink" />}
+                className="w-full sm:w-auto shadow-lg"
               >
-                {hero.primaryCta.label}
+                Book Your Consultation
               </Button>
               <Button
-                href={hero.secondaryCta.href}
-                variant="secondary"
+                variant="outline"
                 size="lg"
-                icon={<ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />}
+                href="#calculator"
+                icon={<Calculator className="w-4 h-4 text-pine" />}
+                className="w-full sm:w-auto"
               >
-                {hero.secondaryCta.label}
+                Calculate Treatment Cost
               </Button>
-            </motion.div>
+            </div>
 
-            <motion.dl
-              variants={itemVariants}
-              className="mt-12 flex flex-wrap gap-x-8 gap-y-5 border-t border-mist-dark pt-6"
-            >
-              {hero.stats.map((stat) => (
-                <div key={stat.label}>
-                  <dt className="sr-only">{stat.label}</dt>
-                  <dd className="font-mono text-xl sm:text-2xl text-ink">{stat.value}</dd>
-                  <dd className="mt-0.5 text-xs uppercase tracking-[0.12em] text-ink/50">
-                    {stat.label}
-                  </dd>
+            {/* Key Value Checklist */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-pine/80 mb-10 border-t border-b border-mist-dark/40 py-3 w-full">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-gold-dark" />
+                <span>Zero-Wait Concierge</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-gold-dark" />
+                <span>Painless Laser Dentistry</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-gold-dark" />
+                <span>0% Financing Available</span>
+              </div>
+            </div>
+
+            {/* Trust Metrics / Rating Bar */}
+            <div className="flex flex-wrap items-center gap-6">
+              <div className="flex items-center gap-3">
+                <div className="flex text-gold">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-gold text-gold" />
+                  ))}
                 </div>
-              ))}
-            </motion.dl>
+                <div className="text-sm font-bold text-pine">
+                  {hero.trustBadge.rating} <span className="font-normal text-ink/60 text-xs">/ 5.0 ({hero.trustBadge.reviewCount})</span>
+                </div>
+              </div>
+
+              <div className="h-4 w-px bg-mist-dark hidden sm:block" />
+
+              <div className="flex items-center gap-2 text-xs text-ink/70">
+                <ShieldCheck className="w-4 h-4 text-sage-dark" />
+                <span>{hero.trustBadge.platform}</span>
+              </div>
+            </div>
           </motion.div>
 
-          <div className="relative mt-10 lg:col-span-6 lg:mt-0">
-            <ArchMark reduceMotion={!!reduceMotion} />
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.6, ease: "easeOut" }}
-              className="animate-float absolute -right-3 top-4 flex items-center gap-2 rounded-2xl border border-ink/10 bg-porcelain-50/80 px-3 py-2.5 shadow-card backdrop-blur-md sm:px-4 sm:py-3 sm:-right-6"
-            >
-              <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-gold text-gold" strokeWidth={0} />
-              <div className="leading-tight">
-                <p className="font-mono text-xs sm:text-sm text-ink">{hero.trustBadge.rating} rating</p>
-                <p className="text-[10px] sm:text-[11px] text-ink/50">{hero.trustBadge.reviewCount} reviews</p>
+          {/* Right Column: Hero Visual Card with High-Res Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-5 relative"
+          >
+            <div className="relative mx-auto rounded-3xl overflow-hidden shadow-premium border border-mist-dark/60 bg-porcelain-50 p-3">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/hero.jpg"
+                  alt={config.name}
+                  fill
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-pine/60 via-transparent to-transparent" />
+                
+                {/* Overlay Doctor / Studio Info */}
+                <div className="absolute bottom-4 left-4 right-4 text-porcelain-50">
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-gold-light bg-pine/80 px-2.5 py-1 rounded-full backdrop-blur-sm">
+                    {config.doctors[0]?.name || "Master Dentist"}
+                  </span>
+                  <h3 className="font-display font-semibold text-lg mt-1 text-white">
+                    {config.name}
+                  </h3>
+                  <p className="text-xs text-porcelain-100/80">
+                    {contact.address.street}, {contact.address.cityStateZip}
+                  </p>
+                </div>
               </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3, duration: 0.6, ease: "easeOut" }}
-              className="animate-float-slow absolute -left-3 bottom-4 rounded-2xl border border-ink/10 bg-porcelain-50/80 px-3 py-2.5 shadow-card backdrop-blur-md sm:px-4 sm:py-3 sm:-left-8"
-            >
-              <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-ink/50">
-                Availability
-              </p>
-              <p className="mt-0.5 text-xs sm:text-sm text-ink">{hero.availabilityNote}</p>
-            </motion.div>
-          </div>
+              {/* Floating Badge 1: Rating */}
+              <div className="absolute -top-4 -left-4 glass-panel p-3.5 rounded-2xl shadow-card flex items-center gap-3 border border-white/80">
+                <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold-dark font-bold text-sm">
+                  ★ {hero.trustBadge.rating}
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-pine">Top Rated Clinic</p>
+                  <p className="text-[11px] text-ink/60">{hero.trustBadge.reviewCount} Patient Reviews</p>
+                </div>
+              </div>
+
+              {/* Floating Badge 2: Availability */}
+              <div className="absolute -bottom-5 -right-4 glass-panel p-3.5 rounded-2xl shadow-card flex items-center gap-3 border border-white/80">
+                <div className="w-9 h-9 rounded-xl bg-pine/10 flex items-center justify-center text-pine">
+                  <Clock className="w-4 h-4 text-pine" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-pine">Immediate Openings</p>
+                  <p className="text-[11px] text-ink/60">{hero.availabilityNote}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Grid of Stats below visual */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+              {hero.stats.map((stat) => (
+                <div key={stat.label} className="bg-porcelain-50/80 border border-mist-dark/40 rounded-2xl p-3 text-center shadow-sm">
+                  <div className="font-display text-xl font-bold text-pine">{stat.value}</div>
+                  <div className="text-[10px] uppercase font-mono tracking-wider text-ink/60 mt-0.5">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </Container>
     </section>
-  );
-}
-
-function ArchMark({ reduceMotion }: { reduceMotion: boolean }) {
-  const drawTransition = (delay: number) => ({
-    pathLength: { duration: reduceMotion ? 0 : 1.6, delay, ease: [0.65, 0, 0.35, 1] as const },
-    opacity: { duration: 0.4, delay },
-  });
-
-  const nodes = [
-    { cx: 70, cy: 210 },
-    { cx: 450, cy: 210 },
-    { cx: 260, cy: 90 },
-    { cx: 260, cy: 330 },
-  ];
-
-  return (
-    <div className="relative mx-auto aspect-square max-w-xs rounded-[24px] border border-ink/10 bg-porcelain-50 p-6 shadow-premium sm:max-w-sm sm:rounded-[32px] sm:p-8">
-      <svg
-        viewBox="0 0 520 420"
-        className="h-full w-full"
-        role="img"
-        aria-label={`${siteConfig.name} signature arch mark`}
-      >
-        <motion.line
-          x1="40"
-          y1="210"
-          x2="480"
-          y2="210"
-          stroke="var(--color-mist-dark)"
-          strokeWidth="1"
-          strokeDasharray="2 8"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={drawTransition(0.1)}
-        />
-        <motion.path
-          d="M 70 210 C 70 90, 450 90, 450 210"
-          fill="none"
-          stroke="var(--color-pine)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={drawTransition(0.3)}
-        />
-        <motion.path
-          d="M 70 210 C 70 330, 450 330, 450 210"
-          fill="none"
-          stroke="var(--color-sage-dark)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={drawTransition(0.55)}
-        />
-        {nodes.map((node, index) => (
-          <motion.circle
-            key={`${node.cx}-${node.cy}`}
-            cx={node.cx}
-            cy={node.cy}
-            r="4"
-            fill="var(--color-porcelain)"
-            stroke="var(--color-ink)"
-            strokeWidth="1.5"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{
-              delay: reduceMotion ? 0 : 1 + index * 0.1,
-              duration: 0.4,
-              ease: "backOut",
-            }}
-          />
-        ))}
-        <motion.circle
-          cx="352"
-          cy="132"
-          r="6"
-          fill="var(--color-gold)"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: reduceMotion ? 0 : 1.5, duration: 0.5, ease: "backOut" }}
-        />
-        {!reduceMotion && (
-          <motion.circle
-            cx="352"
-            cy="132"
-            r="6"
-            fill="var(--color-gold)"
-            initial={{ scale: 1, opacity: 0.5 }}
-            animate={{ scale: [1, 2.2], opacity: [0.5, 0] }}
-            transition={{ delay: 2, duration: 2, repeat: Infinity, ease: "easeOut" }}
-          />
-        )}
-      </svg>
-    </div>
   );
 }
