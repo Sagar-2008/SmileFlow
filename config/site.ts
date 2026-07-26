@@ -1,6 +1,5 @@
 import type { ClinicConfig, Service } from "@/types/site";
 import { brandingConfig } from "./branding";
-import { contactConfig } from "./contact";
 import { themeConfig } from "./theme";
 import { heroConfig } from "./hero";
 import { servicesConfig, amenitiesConfig } from "./services";
@@ -9,6 +8,8 @@ import { beforeAfterConfig } from "./beforeAfter";
 import { doctorsConfig } from "./doctors";
 import { reviewsConfig } from "./reviews";
 import { faqConfig } from "./faq";
+import { navigationConfig } from "./navigation";
+import { footerConfig } from "./footer";
 
 // Map services with pricing configuration dynamically
 const fullyMappedServices: Service[] = servicesConfig.map((service) => {
@@ -32,9 +33,22 @@ export const siteConfig: ClinicConfig = {
   description: brandingConfig.description,
   establishedYear: brandingConfig.establishedYear,
   logo: brandingConfig.logo,
-  contact: contactConfig,
+  primaryCta: brandingConfig.primaryCta,
+  secondaryCta: brandingConfig.secondaryCta,
+  contact: {
+    phone: brandingConfig.phone,
+    phoneDisplay: brandingConfig.phoneDisplay,
+    whatsapp: brandingConfig.whatsapp,
+    whatsappDisplay: brandingConfig.whatsappDisplay,
+    emergencyPhone: brandingConfig.emergencyPhone,
+    email: brandingConfig.email,
+    address: brandingConfig.address,
+    hours: brandingConfig.hours,
+  },
   theme: themeConfig,
   hero: heroConfig,
+  navigation: navigationConfig,
+  footer: footerConfig,
   doctors: doctorsConfig,
   services: fullyMappedServices,
   transformations: beforeAfterConfig,

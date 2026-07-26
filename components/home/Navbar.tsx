@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { Phone, Calendar, Menu, X, MessageCircle, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navigationConfig } from "@/config/navigation";
-import { brandingConfig } from "@/config/branding";
 import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import type { ClinicConfig } from "@/types/site";
@@ -39,21 +37,21 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
           {/* Brand Logo Presentation */}
           <a href="#" className="flex items-center gap-3.5 group">
             <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary via-cyan-600 to-primary flex items-center justify-center text-white font-display font-black text-2xl shadow-md transition-all duration-300 group-hover:scale-105 group-hover:rotate-2 group-hover:shadow-glow">
-              {config.logo.mark || brandingConfig.logo.mark}
+              {config.logo.mark}
             </div>
             <div className="flex flex-col">
               <span className="font-display font-black text-xl tracking-tight text-secondary leading-none group-hover:text-primary transition-colors">
-                {config.logo.wordmark || brandingConfig.logo.wordmark}
+                {config.logo.wordmark}
               </span>
               <span className="text-xs font-mono tracking-[0.15em] text-primary uppercase mt-0.5 font-extrabold">
-                {config.logo.wordmarkSuffix || brandingConfig.logo.wordmarkSuffix}
+                {config.logo.wordmarkSuffix}
               </span>
             </div>
           </a>
 
           {/* Navigation Links */}
           <div className="hidden lg:flex items-center gap-8">
-            {navigationConfig.map((link) => (
+            {config.navigation.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
@@ -69,7 +67,7 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
           <div className="hidden md:flex items-center gap-3.5">
             {/* Iconic Green WhatsApp Button */}
             <a
-              href={`https://wa.me/${brandingConfig.whatsapp.replace(/\+/g, "")}`}
+              href={`https://wa.me/${config.contact.whatsapp.replace(/\+/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black text-white bg-[#25D366] hover:bg-[#20bd5a] shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300"
@@ -81,11 +79,11 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
 
             {/* Sleek Call Button */}
             <a
-              href={`tel:${brandingConfig.phone}`}
+              href={`tel:${config.contact.phone}`}
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold text-secondary hover:text-primary bg-slate-100/90 hover:bg-primary/10 border border-slate-200/80 hover:scale-105 transition-all duration-300"
             >
               <Phone className="w-4 h-4 text-primary" />
-              <span>{brandingConfig.phoneDisplay}</span>
+              <span>{config.contact.phoneDisplay}</span>
             </a>
 
             {/* Stunning High-Impact Book Appointment CTA */}
@@ -95,7 +93,7 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
             >
               <span className="relative z-10 flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-white group-hover:rotate-12 transition-transform duration-300" />
-                <span>{brandingConfig.primaryCta}</span>
+                <span>{config.primaryCta}</span>
                 <Sparkles className="w-3.5 h-3.5 text-accent animate-pulse" />
               </span>
               {/* Shine flare overlay */}
@@ -124,7 +122,7 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
               className="lg:hidden mt-4 pb-6 pt-3 border-t border-border-theme bg-bg-card rounded-theme p-5 shadow-2xl"
             >
               <div className="flex flex-col gap-3">
-                {navigationConfig.map((link) => (
+                {config.navigation.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
@@ -136,7 +134,7 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
                 ))}
                 <div className="pt-4 border-t border-border-theme flex flex-col gap-3">
                   <a
-                    href={`https://wa.me/${brandingConfig.whatsapp.replace(/\+/g, "")}`}
+                    href={`https://wa.me/${config.contact.whatsapp.replace(/\+/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-black text-white bg-[#25D366]"
@@ -145,11 +143,11 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
                     <span>Chat on WhatsApp</span>
                   </a>
                   <a
-                    href={`tel:${brandingConfig.phone}`}
+                    href={`tel:${config.contact.phone}`}
                     className="flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-extrabold text-secondary bg-slate-100"
                   >
                     <Phone className="w-4 h-4 text-primary" />
-                    <span>Call Us: {brandingConfig.phoneDisplay}</span>
+                    <span>Call Us: {config.contact.phoneDisplay}</span>
                   </a>
                   <button
                     onClick={() => {
@@ -159,7 +157,7 @@ export default function Navbar({ config, onOpenBooking }: NavbarProps) {
                     className="w-full py-3.5 rounded-full bg-gradient-to-r from-primary to-cyan-500 text-white font-display text-sm font-black uppercase tracking-wider shadow-glow flex items-center justify-center gap-2"
                   >
                     <Calendar className="w-4 h-4" />
-                    <span>{brandingConfig.primaryCta}</span>
+                    <span>{config.primaryCta}</span>
                   </button>
                 </div>
               </div>

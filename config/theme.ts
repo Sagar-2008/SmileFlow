@@ -1,18 +1,4 @@
-export interface ThemeConfig {
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor: string;
-  bgColor: string;
-  bgCardColor: string;
-  textColor: string;
-  textMutedColor: string;
-  borderColor: string;
-  borderRadius: string;
-  shadowSm: string;
-  shadowMd: string;
-  shadowLg: string;
-  heroStyle: 'clinical' | 'modern' | 'minimal';
-}
+import type { ThemeConfig } from "@/types/site";
 
 export const themeConfig: ThemeConfig = {
   primaryColor: "#0284c7", // Medical Teal Blue
@@ -27,5 +13,4 @@ export const themeConfig: ThemeConfig = {
   shadowSm: "0 1px 2px 0 rgba(15, 23, 42, 0.05)",
   shadowMd: "0 10px 15px -3px rgba(15, 23, 42, 0.05), 0 4px 6px -4px rgba(15, 23, 42, 0.05)",
   shadowLg: "0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08)",
-  heroStyle: "clinical",
 };

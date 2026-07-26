@@ -39,10 +39,26 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0284c7",
+  themeColor: siteConfig.theme.primaryColor,
   width: "device-width",
   initialScale: 1,
 };
+
+// Theme CSS custom properties — set at the layout level (server-rendered, no FOUC)
+const themeStyles = {
+  "--primary-color": siteConfig.theme.primaryColor,
+  "--secondary-color": siteConfig.theme.secondaryColor,
+  "--accent-color": siteConfig.theme.accentColor,
+  "--bg-color": siteConfig.theme.bgColor,
+  "--bg-card": siteConfig.theme.bgCardColor,
+  "--text-color": siteConfig.theme.textColor,
+  "--text-muted": siteConfig.theme.textMutedColor,
+  "--border-color": siteConfig.theme.borderColor,
+  "--border-radius": siteConfig.theme.borderRadius,
+  "--shadow-sm-val": siteConfig.theme.shadowSm,
+  "--shadow-md-val": siteConfig.theme.shadowMd,
+  "--shadow-lg-val": siteConfig.theme.shadowLg,
+} as React.CSSProperties;
 
 export default function RootLayout({
   children,
@@ -53,6 +69,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${jakartaSans.variable} ${outfit.variable}`}
+      style={themeStyles}
     >
       <body className="bg-bg-base font-sans text-text-main antialiased">{children}</body>
     </html>

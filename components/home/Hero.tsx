@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Star, ShieldCheck, ArrowRight, Calculator, CheckCircle2, Clock } from "lucide-react";
 import Image from "next/image";
-import { brandingConfig } from "@/config/branding";
 import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
@@ -78,7 +77,7 @@ export default function Hero({ config, onOpenBooking }: HeroProps) {
                 icon={<ArrowRight className="w-4 h-4 text-white" />}
                 className="w-full sm:w-auto shadow-md hover:shadow-lg transition-all duration-200 font-extrabold"
               >
-                {brandingConfig.primaryCta}
+                {config.primaryCta}
               </Button>
               <Button
                 variant="outline"
@@ -87,7 +86,7 @@ export default function Hero({ config, onOpenBooking }: HeroProps) {
                 icon={<Calculator className="w-4 h-4 text-primary" />}
                 className="w-full sm:w-auto font-bold"
               >
-                {brandingConfig.secondaryCta}
+                {config.secondaryCta}
               </Button>
             </motion.div>
 
@@ -148,7 +147,7 @@ export default function Hero({ config, onOpenBooking }: HeroProps) {
               <div className="relative aspect-[4/3] rounded-[calc(var(--border-radius)-0.25rem)] overflow-hidden">
                 <Image
                   src={hero.heroImage}
-                  alt={brandingConfig.clinicName}
+                  alt={config.name}
                   fill
                   className="object-cover transition-transform duration-700 hover:scale-105"
                   priority
@@ -161,10 +160,10 @@ export default function Hero({ config, onOpenBooking }: HeroProps) {
                     {config.doctors[0]?.name || "Specialist Physician"}
                   </span>
                   <h3 className="font-display font-extrabold text-lg mt-1.5 text-white">
-                    {brandingConfig.clinicName}
+                    {config.name}
                   </h3>
                   <p className="text-xs text-white/80 font-medium">
-                    {brandingConfig.address.street}, {brandingConfig.address.cityStateZip}
+                    {config.contact.address.street}, {config.contact.address.cityStateZip}
                   </p>
                 </div>
               </div>

@@ -72,6 +72,8 @@ export interface ClinicHours {
 export interface ContactConfig {
   phone: string;
   phoneDisplay: string;
+  whatsapp: string;
+  whatsappDisplay: string;
   emergencyPhone: string;
   email: string;
   address: {
@@ -96,7 +98,6 @@ export interface ThemeConfig {
   shadowSm: string;
   shadowMd: string;
   shadowLg: string;
-  heroStyle: 'clinical' | 'modern' | 'minimal';
 }
 
 export interface HeroConfig {
@@ -113,6 +114,12 @@ export interface HeroConfig {
   heroImage: string;
 }
 
+export interface FooterConfig {
+  complianceNote: string;
+  copyright: string;
+  links: Array<{ label: string; href: string }>;
+}
+
 export interface ClinicConfig {
   id: string;
   name: string;
@@ -126,9 +133,13 @@ export interface ClinicConfig {
     wordmark: string;
     wordmarkSuffix: string;
   };
+  primaryCta: string;
+  secondaryCta: string;
   contact: ContactConfig;
   theme: ThemeConfig;
   hero: HeroConfig;
+  navigation: NavItem[];
+  footer: FooterConfig;
   doctors: Doctor[];
   services: Service[];
   transformations: SmileTransformation[];

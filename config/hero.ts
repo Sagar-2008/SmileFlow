@@ -1,16 +1,4 @@
-export interface HeroConfig {
-  eyebrow: string;
-  headline: string[];
-  description: string;
-  trustBadge: {
-    rating: string;
-    reviewCount: string;
-    platform: string;
-  };
-  availabilityNote: string;
-  stats: Array<{ value: string; label: string }>;
-  heroImage: string;
-}
+import type { HeroConfig } from "@/types/site";
 
 export const heroConfig: HeroConfig = {
   eyebrow: "Trusted Family & Cosmetic Dentistry",

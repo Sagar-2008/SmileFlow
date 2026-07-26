@@ -1,8 +1,6 @@
 "use client";
 
 import { MapPin, Phone, Mail, ArrowUpRight, ShieldCheck } from "lucide-react";
-import { footerConfig } from "@/config/footer";
-import { socialConfig } from "@/config/social";
 import Container from "@/components/ui/Container";
 import type { ClinicConfig } from "@/types/site";
 
@@ -12,7 +10,7 @@ interface FooterProps {
 }
 
 export default function Footer({ config, onOpenBooking }: FooterProps) {
-  const { contact, logo } = config;
+  const { contact, logo, footer } = config;
 
   return (
     <footer className="bg-secondary text-white pt-20 pb-12 relative overflow-hidden border-t border-white/5">
@@ -41,7 +39,7 @@ export default function Footer({ config, onOpenBooking }: FooterProps) {
 
             <div className="flex items-center gap-2.5 text-xs font-mono text-white/80 bg-white/5 p-3 rounded-theme border border-white/10">
               <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
-              <span>{footerConfig.complianceNote.split(".")[0]}.</span>
+              <span>{footer.complianceNote.split(".")[0]}.</span>
             </div>
           </div>
 
@@ -116,9 +114,9 @@ export default function Footer({ config, onOpenBooking }: FooterProps) {
 
         {/* Bottom footer bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 gap-4 font-semibold">
-          <p>© {new Date().getFullYear()} {footerConfig.copyright}</p>
+          <p>© {new Date().getFullYear()} {footer.copyright}</p>
           <div className="flex gap-6">
-            {footerConfig.links.map((link) => (
+            {footer.links.map((link) => (
               <a key={link.label} href={link.href} className="hover:text-primary transition-colors">
                 {link.label}
               </a>

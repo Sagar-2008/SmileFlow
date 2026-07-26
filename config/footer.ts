@@ -1,10 +1,5 @@
 import { brandingConfig } from "./branding";
-
-export interface FooterConfig {
-  complianceNote: string;
-  copyright: string;
-  links: Array<{ label: string; href: string }>;
-}
+import type { FooterConfig } from "@/types/site";
 
 export const footerConfig: FooterConfig = {
   complianceNote: `${brandingConfig.clinicName} is fully compliant with state and national healthcare standards. Our clinic operates under strict sterilization protocols.`,
