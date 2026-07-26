@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Sparkles, Clock, Scan, Zap, Shield, Heart } from "lucide-react";
+import { motion } from "framer-motion";
+import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import type { ClinicConfig } from "@/types/site";
 
@@ -10,76 +12,105 @@ interface ClinicExperienceProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-  Clock: <Clock className="w-5 h-5 text-gold-dark" />,
-  Scan: <Scan className="w-5 h-5 text-gold-dark" />,
-  Zap: <Zap className="w-5 h-5 text-gold-dark" />,
-  Sparkles: <Sparkles className="w-5 h-5 text-gold-dark" />,
+  Clock: <Clock className="w-5 h-5 text-primary" />,
+  Scan: <Scan className="w-5 h-5 text-primary" />,
+  Zap: <Zap className="w-5 h-5 text-primary" />,
+  Sparkles: <Sparkles className="w-5 h-5 text-primary" />,
 };
 
 export default function ClinicExperience({ config }: ClinicExperienceProps) {
   return (
-    <section id="experience" className="py-24 bg-porcelain-100 relative overflow-hidden border-b border-mist-dark/30">
+    <section id="experience" className="py-24 bg-bg-card relative overflow-hidden border-b border-border-theme/40">
       <Container>
         <div className="grid lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Image & Feature Highlight */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-premium border border-mist-dark/60 bg-porcelain-50 p-3">
-              <div className="relative h-full w-full rounded-2xl overflow-hidden">
+          
+          {/* Left Column: Visual Interior Showcase Card */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={animationsConfig.scaleUp}
+            className="lg:col-span-6 relative"
+          >
+            <div className="relative aspect-[4/3] rounded-theme overflow-hidden shadow-premium border border-border-theme bg-bg-base p-3">
+              <div className="relative h-full w-full rounded-[calc(var(--border-radius)-0.5rem)] overflow-hidden">
                 <Image
                   src="/images/clinic.jpg"
-                  alt="Clinic Spa Lounge"
+                  alt="Clinic Treatment Office Lounge"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-pine/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/70 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-white">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-gold-light bg-pine/80 px-3 py-1 rounded-full backdrop-blur-md">
-                    Private Care Environment
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-accent bg-secondary/80 px-3 py-1 rounded-theme backdrop-blur-sm font-bold">
+                    Safe & Sanitary Clinical Space
                   </span>
-                  <h3 className="font-display text-2xl font-bold mt-2">
-                    Designed for Ultimate Serenity
+                  <h3 className="font-sans font-extrabold text-2xl mt-2 text-white">
+                    Built for Your Comfort
                   </h3>
-                  <p className="text-xs text-porcelain-100/80 mt-1">
-                    Zero waiting room stress. Unhurried one-on-one doctor attention.
+                  <p className="text-xs text-white/80 mt-1 font-medium">
+                    Strict sterilization guidelines, comfortable amenities, and on-time doctor scheduling.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Technology & Amenities List */}
-          <div className="lg:col-span-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pine/5 border border-pine/10 text-pine text-xs font-mono uppercase tracking-wider mb-4 font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-              Patient-First Technology
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-pine tracking-tight mb-6">
-              The Dental Spa Experience
-            </h2>
-            <p className="text-base text-ink/70 leading-relaxed mb-8">
-              We eliminated everything patients dislike about traditional dental visits—replacing noise and waiting with quiet comfort, advanced 3D scanning, and gentle laser techniques.
-            </p>
+          {/* Right Column: Title, Copy & Perks Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={animationsConfig.staggerContainer}
+            className="lg:col-span-6"
+          >
+            <motion.div
+              variants={animationsConfig.fadeInUp}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
+            >
+              <Heart className="w-3.5 h-3.5 text-accent" />
+              Patient comfort
+            </motion.div>
+            
+            <motion.h2
+              variants={animationsConfig.fadeInUp}
+              className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-6"
+            >
+              A Better Dental Experience
+            </motion.h2>
+            
+            <motion.p
+              variants={animationsConfig.fadeInUp}
+              className="text-base text-text-muted leading-relaxed mb-8 font-medium"
+            >
+              We have eliminated the classic friction points of old-fashioned dental visits. Enjoy modern diagnostic scanners, drill-free laser fillings, and gentle patient comforts designed to put you at ease.
+            </motion.p>
 
-            {/* Amenities Cards Grid */}
-            <div className="grid sm:grid-cols-2 gap-4">
+            {/* Perks Cards Grid */}
+            <motion.div
+              variants={animationsConfig.staggerContainer}
+              className="grid sm:grid-cols-2 gap-4"
+            >
               {config.amenities.map((amenity, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="bg-porcelain-50 rounded-2xl p-5 border border-mist-dark/40 shadow-sm hover:border-gold/50 transition-colors"
+                  variants={animationsConfig.fadeInUp}
+                  className="bg-bg-base rounded-theme p-5 border border-border-theme shadow-card hover:border-primary/50 transition-colors duration-200"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-gold/15 flex items-center justify-center mb-3">
-                    {iconMap[amenity.iconName] || <Heart className="w-5 h-5 text-gold-dark" />}
+                  <div className="w-10 h-10 rounded-theme bg-primary/10 flex items-center justify-center mb-3">
+                    {iconMap[amenity.iconName] || <Shield className="w-5 h-5 text-primary" />}
                   </div>
-                  <h4 className="font-display font-bold text-lg text-pine mb-1">
+                  <h4 className="font-sans font-extrabold text-base text-secondary mb-1 leading-snug">
                     {amenity.title}
                   </h4>
-                  <p className="text-xs text-ink/70 leading-relaxed">
+                  <p className="text-xs text-text-muted leading-relaxed font-semibold">
                     {amenity.description}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
+
         </div>
       </Container>
     </section>

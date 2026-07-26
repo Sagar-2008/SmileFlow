@@ -8,7 +8,7 @@ interface ButtonProps {
   external?: boolean;
   onClick?: () => void;
   type?: "button" | "submit";
-  variant?: "primary" | "secondary" | "gold" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "accent" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
   icon?: ReactNode;
   className?: string;
@@ -16,25 +16,25 @@ interface ButtonProps {
 }
 
 const baseStyles =
-  "inline-flex items-center justify-center gap-2.5 rounded-full font-medium tracking-wide whitespace-nowrap transition-all duration-300 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer";
+  "inline-flex items-center justify-center gap-2.5 font-medium tracking-wide whitespace-nowrap transition-all duration-200 active:scale-[0.98] cursor-pointer rounded-theme";
 
 const variantStyles: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary:
-    "bg-pine text-porcelain-50 hover:bg-pine-light hover:shadow-lg hover:shadow-pine/20 border border-pine-light/30",
-  gold:
-    "bg-gradient-to-r from-gold via-gold-light to-gold text-ink font-semibold shadow-md shadow-gold/20 hover:brightness-105 hover:shadow-gold/40 border border-gold-light/50",
+    "bg-primary text-white shadow-md hover:brightness-105 border border-primary/20",
   secondary:
-    "bg-porcelain-100 text-ink hover:bg-mist border border-mist-dark/60 hover:border-ink/20",
+    "bg-secondary text-white shadow-md hover:brightness-105 border border-secondary/20",
+  accent:
+    "bg-accent text-white shadow-md hover:brightness-105 border border-accent/20",
   outline:
-    "border border-pine/20 bg-transparent text-pine hover:border-pine hover:bg-pine/5",
+    "border border-primary/30 bg-transparent text-primary hover:bg-primary/5",
   ghost:
-    "bg-transparent text-ink/80 hover:text-gold-dark hover:bg-mist/30",
+    "bg-transparent text-text-main hover:bg-primary/5",
 };
 
 const sizeStyles: Record<NonNullable<ButtonProps["size"]>, string> = {
   sm: "px-4 py-2 text-xs",
-  md: "px-6 py-3 text-sm",
-  lg: "px-8 py-4 text-base",
+  md: "px-5 py-2.5 text-sm",
+  lg: "px-7 py-3.5 text-base",
 };
 
 export default function Button({

@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Award, Calendar, CheckCircle, GraduationCap } from "lucide-react";
+import { Award, Calendar, CheckCircle2, GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
+import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import type { ClinicConfig } from "@/types/site";
@@ -13,82 +15,104 @@ interface DoctorShowcaseProps {
 
 export default function DoctorShowcase({ config, onOpenBooking }: DoctorShowcaseProps) {
   return (
-    <section id="doctors" className="py-24 bg-porcelain relative overflow-hidden border-b border-mist-dark/30">
+    <section id="doctors" className="py-24 bg-bg-base relative overflow-hidden border-b border-border-theme/40">
       <Container>
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pine/5 border border-pine/10 text-pine text-xs font-mono uppercase tracking-wider mb-4 font-semibold">
-            <Award className="w-3.5 h-3.5 text-gold-dark" />
-            World-Renowned Specialists
-          </div>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-pine tracking-tight mb-4">
-            Meet Our Master Clinicians
-          </h2>
-          <p className="text-base text-ink/70 leading-relaxed">
-            Our doctors combine clinical excellence, continuous academic research, and personalized artistic care to deliver unbeatable dental outcomes.
-          </p>
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={animationsConfig.staggerContainer}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <motion.div
+            variants={animationsConfig.fadeInUp}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
+          >
+            <Award className="w-3.5 h-3.5 text-accent" />
+            Clinical Excellence
+          </motion.div>
+          <motion.h2
+            variants={animationsConfig.fadeInUp}
+            className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
+          >
+            Meet Our Specialist Dentists
+          </motion.h2>
+          <motion.p
+            variants={animationsConfig.fadeInUp}
+            className="text-base text-text-muted font-medium"
+          >
+            Our dental professionals combine academic research with warm, personalized clinical care to deliver optimal health outcomes.
+          </motion.p>
+        </motion.div>
 
-        {/* Doctors Grid */}
-        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        {/* Doctors Grid with animation cards */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={animationsConfig.staggerContainer}
+          className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto"
+        >
           {config.doctors.map((doctor) => (
-            <div
+            <motion.div
               key={doctor.id}
-              className="bg-porcelain-50 rounded-3xl p-6 sm:p-8 shadow-card border border-mist-dark/50 flex flex-col justify-between hover:shadow-premium transition-all duration-300"
+              variants={animationsConfig.fadeInUp}
+              className="bg-bg-card rounded-theme p-6 sm:p-8 shadow-card border border-border-theme flex flex-col justify-between hover:shadow-premium transition-all duration-300"
             >
               <div>
-                {/* Doctor Portrait Image Container */}
-                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden mb-6 shadow-sm">
+                {/* Doctor Portrait Image */}
+                <div className="relative aspect-[4/3] w-full rounded-[calc(var(--border-radius)-0.25rem)] overflow-hidden mb-6 shadow-sm">
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
                     fill
                     className="object-cover object-top hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-pine/90 text-gold-light text-[10px] font-mono uppercase tracking-widest backdrop-blur-md">
-                    {doctor.experienceYears}+ Years Experience
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-theme bg-secondary/90 text-accent text-[9px] font-mono uppercase tracking-wider backdrop-blur-sm font-bold">
+                    {doctor.experienceYears}+ Years Clinical Practice
                   </div>
                 </div>
 
-                {/* Name & Credentials */}
-                <h3 className="font-display font-bold text-2xl text-pine mb-1">
+                {/* Name & Role */}
+                <h3 className="font-sans font-extrabold text-2xl text-secondary mb-1 leading-snug">
                   {doctor.name}
                 </h3>
-                <p className="text-xs font-mono font-semibold text-gold-dark uppercase tracking-wider mb-4">
+                <p className="text-xs font-mono font-bold text-primary uppercase tracking-wider mb-4">
                   {doctor.title}
                 </p>
 
-                <div className="flex items-center gap-2 text-xs font-medium text-pine bg-porcelain-100 p-3 rounded-xl mb-4">
-                  <GraduationCap className="w-4 h-4 text-gold-dark shrink-0" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-secondary bg-bg-base p-3 rounded-theme mb-4 border border-border-theme/40">
+                  <GraduationCap className="w-4 h-4 text-primary shrink-0" />
                   <span>{doctor.qualifications}</span>
                 </div>
 
-                <p className="text-sm text-ink/70 leading-relaxed mb-6">
+                <p className="text-sm text-text-muted font-medium leading-relaxed mb-6">
                   {doctor.bio}
                 </p>
 
-                <div className="flex items-center gap-2 text-xs text-ink/60 mb-6">
-                  <CheckCircle className="w-3.5 h-3.5 text-sage-dark" />
-                  <span>Specialty: <strong>{doctor.specialty}</strong></span>
+                <div className="flex items-center gap-2 text-xs text-text-muted font-bold mb-6">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                  <span>Specialty Focus: <strong className="text-secondary font-black">{doctor.specialty}</strong></span>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-mist-dark/30 flex items-center justify-between gap-4">
-                <span className="text-xs font-mono text-ink/60">
-                  Slots: {doctor.availability}
+              <div className="pt-4 border-t border-border-theme flex items-center justify-between gap-4">
+                <span className="text-xs font-mono text-text-muted font-bold">
+                  Schedule: {doctor.availability}
                 </span>
                 <Button
-                  variant="gold"
+                  variant="primary"
                   size="sm"
-                  onClick={() => onOpenBooking(`Appointment with ${doctor.name}`)}
-                  icon={<Calendar className="w-3.5 h-3.5 text-ink" />}
+                  onClick={() => onOpenBooking(`Consultation with ${doctor.name}`)}
+                  icon={<Calendar className="w-3.5 h-3.5" />}
                 >
-                  Book Consultation
+                  Book Appointment
                 </Button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

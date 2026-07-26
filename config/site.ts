@@ -1,282 +1,39 @@
-import type { ClinicConfig } from "@/types/site";
+import type { ClinicConfig, Service } from "@/types/site";
+import { brandingConfig } from "./branding";
+import { contactConfig } from "./contact";
+import { themeConfig } from "./theme";
+import { heroConfig } from "./hero";
+import { servicesConfig, amenitiesConfig } from "./services";
+import { pricingConfig } from "./pricing";
+import { beforeAfterConfig } from "./beforeAfter";
+import { doctorsConfig } from "./doctors";
+import { reviewsConfig } from "./reviews";
+import { faqConfig } from "./faq";
+
+// Combine servicesConfig and pricingConfig dynamically
+const fullyMappedServices: Service[] = servicesConfig.map((service) => {
+  const priceData = pricingConfig[service.id] || {
+    priceRange: "Contact for pricing",
+    estimatedPrice: 0,
+  };
+  return {
+    ...service,
+    priceRange: priceData.priceRange,
+    estimatedPrice: priceData.estimatedPrice,
+  } as Service;
+});
 
 export const siteConfig: ClinicConfig = {
-  id: "meridian-atelier",
-  name: "Meridian Dental Atelier",
-  shortName: "Meridian",
-  url: "https://meridiandental.studio",
-  tagline: "Precision Cosmetic & Restorative Dentistry",
-  description:
-    "Meridian Dental Atelier blends master restorative dentistry, porcelain artistry, and calm surgical precision with the unhurried luxury of a private care lounge.",
-  establishedYear: 2012,
-  logo: {
-    mark: "M",
-    wordmark: "MERIDIAN",
-    wordmarkSuffix: "DENTAL ATELIER",
-  },
-  contact: {
-    phone: "+14155550148",
-    phoneDisplay: "(415) 555-0148",
-    emergencyPhone: "(415) 555-0911",
-    email: "concierge@meridiandental.studio",
-    address: {
-      street: "148 Linden Court",
-      suite: "Suite 400",
-      cityStateZip: "San Francisco, CA 94108",
-      mapUrl: "https://maps.google.com/?q=148+Linden+Court+San+Francisco",
-    },
-  },
-  hours: [
-    { day: "Monday – Thursday", hours: "8:00 AM – 6:00 PM" },
-    { day: "Friday", hours: "8:00 AM – 4:00 PM" },
-    { day: "Saturday", hours: "9:00 AM – 2:00 PM (By Appt)" },
-    { day: "Sunday", hours: "Closed" },
-  ],
-  theme: {
-    primaryColor: "#0D2820",
-    accentColor: "#D4B483",
-    heroStyle: "luxury",
-  },
-  hero: {
-    eyebrow: "Private Cosmetic Studio & Implant Suite",
-    headline: [
-      "Architectural precision.",
-      "Unmatched comfort.",
-      "Your bespoke smile.",
-    ],
-    description:
-      "Experience dental care engineered around your schedule and serenity. From hand-crafted porcelain veneers to 3D guided implant restoration.",
-    trustBadge: {
-      rating: "4.98",
-      reviewCount: "640+",
-      platform: "Google Verified",
-    },
-    availabilityNote: "Priority slots open this week for new consultations.",
-    stats: [
-      { value: "14+", label: "Years of Master Care" },
-      { value: "4,800+", label: "Smiles Sculpted" },
-      { value: "99.4%", label: "Patient Satisfaction" },
-      { value: "15 min", label: "Max Wait Concierge" },
-    ],
-  },
-  doctors: [
-    {
-      id: "doc-1",
-      name: "Dr. Julian Vance, DDS, FAGD",
-      title: "Master Cosmetic & Reconstructive Dentist",
-      specialty: "Porcelain Veneers & Full Mouth Restoration",
-      qualifications: "Stanford Alum, AACD Fellow, top 1% Cosmetic Dentist",
-      image: "/images/doctor-1.jpg",
-      bio: "With over 14 years specializing in aesthetic smile design, Dr. Vance treats dentistry as a high art, tailoring micro-thin porcelain shells with natural light translucency.",
-      experienceYears: 14,
-      availability: "Mon, Tue, Thu",
-    },
-    {
-      id: "doc-2",
-      name: "Dr. Elena Rostova, DMD, MS",
-      title: "Specialist Orthodontist & Invisalign Elite",
-      specialty: "Clear Aligner Therapy & Airway Orthodontics",
-      qualifications: "Harvard School of Dental Medicine, ABO Certified",
-      image: "/images/doctor-2.jpg",
-      bio: "Dr. Rostova specializes in invisible alignment systems and facial aesthetics, helping patients achieve harmonic jaw proportions without traditional braces.",
-      experienceYears: 11,
-      availability: "Wed, Fri, Sat",
-    },
-  ],
-  services: [
-    {
-      id: "srv-veneers",
-      name: "Handmade Porcelain Veneers",
-      category: "cosmetic",
-      tag: "Bespoke Aesthetic",
-      description: "Ultra-thin, custom porcelain laminates sculpted to match your skin tone, facial symmetry, and natural enamel translucency.",
-      priceRange: "$1,800 - $2,500 / tooth",
-      estimatedPrice: 2100,
-      duration: "2 visits over 14 days",
-      features: [
-        "Digital 3D Smile Preview before starting",
-        "Minimal to zero tooth structure removal",
-        "Stain-resistant ceramic porcelain",
-        "10-Year Studio Warranty included",
-      ],
-      popular: true,
-    },
-    {
-      id: "srv-implants",
-      name: "3D Guided Dental Implants",
-      category: "restorative",
-      tag: "Permanent Restoration",
-      description: "Titanium implant posts with custom ceramic crowns engineered using CBCT 3D X-ray scans for surgical precision.",
-      priceRange: "$3,200 - $4,800 / tooth",
-      estimatedPrice: 3800,
-      duration: "3 - 4 months total healing",
-      features: [
-        "Computer-guided surgical placement",
-        "High-density titanium & zirconia posts",
-        "Sleep sedation options available",
-        "Natural chewing strength restored",
-      ],
-      popular: true,
-    },
-    {
-      id: "srv-whitening",
-      name: "Laser Teeth Whitening",
-      category: "cosmetic",
-      tag: "Instant Results",
-      description: "Professional medical-grade cold laser whitening that brightens enamel up to 8 shades in a single 60-minute session.",
-      priceRange: "$650 - $850",
-      estimatedPrice: 750,
-      duration: "60 minutes",
-      features: [
-        "Up to 8 shades whiter in 1 appointment",
-        "Enamel-safe desensitizing treatment",
-        "Includes custom takeaway touch-up trays",
-        "Zero sensitivity formula",
-      ],
-    },
-    {
-      id: "srv-invisalign",
-      name: "Invisalign® Clear Aligners",
-      category: "orthodontics",
-      tag: "Invisible Straightening",
-      description: "Custom medical-grade clear aligners designed with iTero 3D digital impressions for discreet tooth straightening.",
-      priceRange: "$4,500 - $6,800 total",
-      estimatedPrice: 5200,
-      duration: "6 - 12 months average",
-      features: [
-        "100% invisible clear aligners",
-        "No messy physical molds (iTero 3D scan)",
-        "Eat and drink without restrictions",
-        "Includes complimentary post-treatment whitening",
-      ],
-      popular: true,
-    },
-    {
-      id: "srv-hygiene",
-      name: "Luxury Dental Clean & Spa",
-      category: "preventive",
-      tag: "Wellness Maintenance",
-      description: "Ultrasonic tartar removal, airflow stain polishing, fluoride varnish shield, and oral cancer screening in a spa environment.",
-      priceRange: "$250 - $380",
-      estimatedPrice: 290,
-      duration: "45 - 60 minutes",
-      features: [
-        "Ultrasonic painless plaque scaling",
-        "Airflow prophy warm water stain removal",
-        "Oral mucosa & joint health check",
-        "Aromatherapy & noise-canceling headphones",
-      ],
-    },
-    {
-      id: "srv-sedation",
-      name: "Sleep & Conscious Sedation",
-      category: "restorative",
-      tag: "Anxiety-Free Care",
-      description: "For patients with dental anxiety or undergoing extensive treatments. Drift peacefully while our team completes your care.",
-      priceRange: "$350 - $800",
-      estimatedPrice: 500,
-      duration: "Per session",
-      features: [
-        "Board-certified anesthesiologist monitored",
-        "Nitrous oxide or oral conscious sedation",
-        "Wake up refreshed with procedure completed",
-        "Ideal for long multi-procedure appointments",
-      ],
-    },
-  ],
-  transformations: [
-    {
-      id: "trans-1",
-      title: "Full Arch Porcelain Veneer Makeover",
-      treatment: "8 Upper Porcelain Veneers + Laser Gum Contouring",
-      duration: "2 Visits (10 Days)",
-      beforeImage: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800",
-      afterImage: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
-      patientQuote: "Dr. Vance gave me the smile I always dreamed of. My confidence at work and in photos skyrocketed instantly!",
-      doctorName: "Dr. Julian Vance",
-    },
-    {
-      id: "trans-2",
-      title: "Invisalign & Laser Whitening Combo",
-      treatment: "9 Months Clear Aligners + Enamel Laser Brightening",
-      duration: "9 Months",
-      beforeImage: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800",
-      afterImage: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800",
-      patientQuote: "Nobody even noticed I was wearing aligners. The final result is so natural and perfectly aligned.",
-      doctorName: "Dr. Elena Rostova",
-    },
-  ],
-  amenities: [
-    {
-      title: "Zero-Wait Private Suite",
-      description: "Your appointment starts the exact minute scheduled in a serene private treatment studio with zero crowded lobby waiting.",
-      iconName: "Clock",
-    },
-    {
-      title: "3D Digital iTero Scanning",
-      description: "Say goodbye to gag-inducing impression putty. High-definition 3D laser mapping renders your mouth digitally in 60 seconds.",
-      iconName: "Scan",
-    },
-    {
-      title: "Painless Laser Dentistry",
-      description: "State-of-the-art Waterlase laser technology for drill-free fillings and gentle gum contouring with instant healing.",
-      iconName: "Zap",
-    },
-    {
-      title: "Luxury Comfort Menu",
-      description: "Enjoy noise-canceling headphones, Netflix overhead screens, heated massage chairs, and soothing warm scented towels.",
-      iconName: "Sparkles",
-    },
-  ],
-  testimonials: [
-    {
-      id: "test-1",
-      patientName: "Victoria Sterling",
-      rating: 5,
-      treatment: "Porcelain Veneers & Whitening",
-      comment: "Meridian is in a class of its own. It feels like stepping into a 5-star hotel spa rather than a dentist office. Dr. Vance is a true artist—my veneers look completely natural!",
-      date: "2 weeks ago",
-      verified: true,
-    },
-    {
-      id: "test-2",
-      patientName: "Marcus Vance",
-      rating: 5,
-      treatment: "3D Dental Implant",
-      comment: "I had severe anxiety about getting a dental implant after a sports injury. The team made me feel completely relaxed with sedation, and I felt zero pain throughout.",
-      date: "1 month ago",
-      verified: true,
-    },
-    {
-      id: "test-3",
-      patientName: "Sophia Chen",
-      rating: 5,
-      treatment: "Invisalign Clear Aligners",
-      comment: "Dr. Rostova is incredible. She explained every step of my 3D aligner plan clearly. 8 months later, my teeth are flawless! Worth every penny.",
-      date: "3 weeks ago",
-      verified: true,
-    },
-  ],
-  faqs: [
-    {
-      question: "How does the initial cosmetic consultation work?",
-      answer: "During your 45-minute consultation, we take comprehensive 3D iTero digital scans, high-resolution DSLR portrait photos, and discuss your ideal smile goals. We then create a live 3D smile design mock-up so you can preview your future smile before any work begins.",
-      category: "first-visit",
-    },
-    {
-      question: "Do you offer flexible payment plans or financing?",
-      answer: "Yes! We partner with CareCredit and LendingClub to offer 0% APR financing for up to 24 months. We also handle out-of-network PPO dental insurance claims on your behalf to maximize your benefits.",
-      category: "pricing",
-    },
-    {
-      question: "Are porcelain veneers permanent and stain-proof?",
-      answer: "Yes, our custom porcelain veneers are made from ultra-durable ceramic that does not discolor or stain over time from coffee, wine, or food. With proper care, they last 15 to 20+ years.",
-      category: "treatments",
-    },
-    {
-      question: "What if I experience dental anxiety or fear pain?",
-      answer: "Your comfort is our top priority. We offer nitrous oxide (laughing gas) and oral conscious sleep sedation. Combined with our noise-canceling headphones, warm blankets, and painless laser technology, most patients fall asleep during care.",
-      category: "general",
-    },
-  ],
+  ...brandingConfig,
+  id: "evergreen-dental",
+  url: "https://evergreendental.com",
+  contact: contactConfig,
+  theme: themeConfig,
+  hero: heroConfig,
+  doctors: doctorsConfig,
+  services: fullyMappedServices,
+  transformations: beforeAfterConfig,
+  amenities: amenitiesConfig,
+  testimonials: reviewsConfig,
+  faqs: faqConfig,
 };

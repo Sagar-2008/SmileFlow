@@ -26,8 +26,27 @@ export default function Home() {
     setBookingModalOpen(true);
   };
 
+  // Construct CSS style properties based on active config theme settings
+  const themeStyles = {
+    "--primary-color": activeConfig.theme.primaryColor,
+    "--secondary-color": activeConfig.theme.secondaryColor,
+    "--accent-color": activeConfig.theme.accentColor,
+    "--bg-color": activeConfig.theme.bgColor,
+    "--bg-card": activeConfig.theme.bgCardColor,
+    "--text-color": activeConfig.theme.textColor,
+    "--text-muted": activeConfig.theme.textMutedColor,
+    "--border-color": activeConfig.theme.borderColor,
+    "--border-radius": activeConfig.theme.borderRadius,
+    "--shadow-sm-val": activeConfig.theme.shadowSm,
+    "--shadow-md-val": activeConfig.theme.shadowMd,
+    "--shadow-lg-val": activeConfig.theme.shadowLg,
+  } as React.CSSProperties;
+
   return (
-    <main className="min-h-screen bg-porcelain font-sans selection:bg-gold-light selection:text-ink">
+    <main
+      style={themeStyles}
+      className="min-h-screen bg-bg-base font-sans transition-colors duration-300"
+    >
       {/* Top Header Navbar */}
       <Navbar config={activeConfig} onOpenBooking={handleOpenBooking} />
 
@@ -46,7 +65,7 @@ export default function Home() {
       {/* Doctor & Specialist Roster */}
       <DoctorShowcase config={activeConfig} onOpenBooking={handleOpenBooking} />
 
-      {/* Tech & Dental Spa Experience Amenities */}
+      {/* Tech & Patient Comfort Experience Amenities */}
       <ClinicExperience config={activeConfig} />
 
       {/* Verified Testimonials */}

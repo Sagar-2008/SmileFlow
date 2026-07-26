@@ -69,6 +69,50 @@ export interface ClinicHours {
   hours: string;
 }
 
+export interface ContactConfig {
+  phone: string;
+  phoneDisplay: string;
+  emergencyPhone: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    cityStateZip: string;
+    mapUrl: string;
+  };
+  hours: ClinicHours[];
+}
+
+export interface ThemeConfig {
+  primaryColor: string;
+  secondaryColor: string;
+  accentColor: string;
+  bgColor: string;
+  bgCardColor: string;
+  textColor: string;
+  textMutedColor: string;
+  borderColor: string;
+  borderRadius: string;
+  shadowSm: string;
+  shadowMd: string;
+  shadowLg: string;
+  heroStyle: 'clinical' | 'modern' | 'minimal';
+}
+
+export interface HeroConfig {
+  eyebrow: string;
+  headline: string[];
+  description: string;
+  trustBadge: {
+    rating: string;
+    reviewCount: string;
+    platform: string;
+  };
+  availabilityNote: string;
+  stats: Array<{ value: string; label: string }>;
+  heroImage: string;
+}
+
 export interface ClinicConfig {
   id: string;
   name: string;
@@ -82,36 +126,9 @@ export interface ClinicConfig {
     wordmark: string;
     wordmarkSuffix: string;
   };
-  contact: {
-    phone: string;
-    phoneDisplay: string;
-    emergencyPhone: string;
-    email: string;
-    address: {
-      street: string;
-      suite: string;
-      cityStateZip: string;
-      mapUrl: string;
-    };
-  };
-  hours: ClinicHours[];
-  theme: {
-    primaryColor: string;
-    accentColor: string;
-    heroStyle: 'luxury' | 'modern' | 'minimal';
-  };
-  hero: {
-    eyebrow: string;
-    headline: string[];
-    description: string;
-    trustBadge: {
-      rating: string;
-      reviewCount: string;
-      platform: string;
-    };
-    availabilityNote: string;
-    stats: Array<{ value: string; label: string }>;
-  };
+  contact: ContactConfig;
+  theme: ThemeConfig;
+  hero: HeroConfig;
   doctors: Doctor[];
   services: Service[];
   transformations: SmileTransformation[];

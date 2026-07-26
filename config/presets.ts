@@ -10,94 +10,114 @@ export interface Preset {
 
 export const PRESET_CLINICS: Preset[] = [
   {
-    id: "meridian-atelier",
-    label: "Meridian Atelier",
-    subtitle: "Luxury Cosmetic & Implant Studio",
+    id: "evergreen-dental",
+    label: "Evergreen Dental Care",
+    subtitle: "Default Family & Wellness Care",
     config: siteConfig,
   },
   {
-    id: "vogue-cosmetic",
-    label: "Vogue Dental Spa",
-    subtitle: "Beverly Hills Aesthetic Dentistry",
+    id: "apex-partners",
+    label: "Apex Dental Partners",
+    subtitle: "Modern Multi-Specialty Group",
     config: {
       ...siteConfig,
-      id: "vogue-cosmetic",
-      name: "Vogue Dental Spa",
-      shortName: "Vogue",
-      tagline: "High-Fashion Smile Architecture",
-      description: "Beverly Hills' premier dental lounge specializing in Hollywood smile makeovers, porcelain veneers, and red-carpet teeth whitening.",
-      logo: {
-        mark: "V",
-        wordmark: "VOGUE",
-        wordmarkSuffix: "DENTAL SPA",
-      },
-      contact: {
-        ...siteConfig.contact,
-        phoneDisplay: "(310) 555-9020",
-        address: {
-          street: "9680 Wilshire Boulevard",
-          suite: "Floor 5",
-          cityStateZip: "Beverly Hills, CA 90212",
-          mapUrl: "https://maps.google.com/?q=9680+Wilshire+Blvd+Beverly+Hills",
-        },
-      },
-      theme: {
-        primaryColor: "#17151D",
-        accentColor: "#E0C097",
-        heroStyle: "luxury",
-      },
-      hero: {
-        ...siteConfig.hero,
-        eyebrow: "Beverly Hills Aesthetic Dental Lounge",
-        headline: [
-          "Red carpet smiles.",
-          "Flawless elegance.",
-          "Zero compromise.",
-        ],
-        description: "Transform your smile with the elite cosmetic dentists trusted by fashion icons, actors, and executives worldwide.",
-      },
-    },
-  },
-  {
-    id: "apex-family",
-    label: "Apex Family Care",
-    subtitle: "Modern Family & General Dentistry",
-    config: {
-      ...siteConfig,
-      id: "apex-family",
-      name: "Apex Family Dental Care",
+      id: "apex-partners",
+      name: "Apex Dental Partners",
       shortName: "Apex",
-      tagline: "Gentle Care for Every Generation",
-      description: "Comprehensive family dentistry combining gentle pediatric care, preventive wellness, and modern restoration for all ages.",
+      tagline: "State-of-the-Art Care, Exceptional Service",
+      description: "Apex Dental Partners utilizes advanced digital scanning, painless laser fillings, and modern restoration options to provide clinical excellence for your family.",
       logo: {
         mark: "A",
-        wordmark: "APEX",
-        wordmarkSuffix: "FAMILY DENTAL",
+        wordmark: "APEX DENTAL",
+        wordmarkSuffix: "PARTNERS",
       },
       contact: {
         ...siteConfig.contact,
-        phoneDisplay: "(510) 555-3344",
+        phoneDisplay: "(650) 555-8899",
         address: {
-          street: "450 University Avenue",
-          suite: "Building B",
-          cityStateZip: "Palo Alto, CA 94301",
-          mapUrl: "https://maps.google.com/?q=450+University+Ave+Palo+Alto",
+          street: "880 El Camino Real",
+          suite: "Suite 100",
+          cityStateZip: "Mountain View, CA 94040",
+          mapUrl: "https://maps.google.com/?q=880+El+Camino+Real+Mountain+View",
         },
       },
       theme: {
-        primaryColor: "#0F2C59",
-        accentColor: "#4F709C",
+        primaryColor: "#0f172a", // Navy
+        secondaryColor: "#1e293b", // Slate
+        accentColor: "#3b82f6", // Bright Blue
+        bgColor: "#f1f5f9",
+        bgCardColor: "#ffffff",
+        textColor: "#0f172a",
+        textMutedColor: "#475569",
+        borderColor: "#cbd5e1",
+        borderRadius: "0.5rem", // Modern boxy
+        shadowSm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        shadowMd: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+        shadowLg: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
         heroStyle: "modern",
       },
       hero: {
         ...siteConfig.hero,
-        eyebrow: "Palo Alto Comprehensive Family Care",
+        eyebrow: "Comprehensive Digital Dentistry",
         headline: [
-          "Warm, gentle care",
-          "for your entire family.",
-          "Modern dentistry.",
+          "Advanced dentistry.",
+          "Caring specialists.",
+          "Trusted outcomes.",
         ],
-        description: "From your child's first checkup to advanced tooth restoration, we make dental visits comfortable, transparent, and stress-free.",
+        description: "Experience modern healthcare designed to preserve your teeth for life. Enjoy on-time visits, digital scanning, and painless treatment protocols.",
+      },
+    },
+  },
+  {
+    id: "radiant-smiles",
+    label: "Radiant Smile Studio",
+    subtitle: "Premium Ortho & Cosmetic Center",
+    config: {
+      ...siteConfig,
+      id: "radiant-smiles",
+      name: "Radiant Smile Studio",
+      shortName: "Radiant",
+      tagline: "Healthy Alignment, Beautiful Smiles",
+      description: "Radiant Smile Studio is your premier local clinic for Invisalign clear aligners, teeth whitening, and custom cosmetic veneers in a friendly setting.",
+      logo: {
+        mark: "R",
+        wordmark: "RADIANT",
+        wordmarkSuffix: "SMILE STUDIO",
+      },
+      contact: {
+        ...siteConfig.contact,
+        phoneDisplay: "(415) 555-2244",
+        address: {
+          street: "1020 Post Street",
+          suite: "Suite 400",
+          cityStateZip: "San Francisco, CA 94109",
+          mapUrl: "https://maps.google.com/?q=1020+Post+Street+San+Francisco",
+        },
+      },
+      theme: {
+        primaryColor: "#0d9488", // Deep Teal
+        secondaryColor: "#115e59", // Teal Dark
+        accentColor: "#ec4899", // Pink Accent
+        bgColor: "#fafaf9",
+        bgCardColor: "#ffffff",
+        textColor: "#1c1917",
+        textMutedColor: "#57534e",
+        borderColor: "#e7e5e4",
+        borderRadius: "1.5rem", // Extra friendly rounded
+        shadowSm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        shadowMd: "0 4px 6px -1px rgba(0, 0, 0, 0.05)",
+        shadowLg: "0 10px 15px -3px rgba(0, 0, 0, 0.08)",
+        heroStyle: "minimal",
+      },
+      hero: {
+        ...siteConfig.hero,
+        eyebrow: "Orthodontic & Aesthetic Specialists",
+        headline: [
+          "Perfect alignment.",
+          "Luminous whitening.",
+          "Confidence restored.",
+        ],
+        description: "Transform your smile comfortably with state-of-the-art clear aligner therapy, laser whitening, and expert aesthetic evaluations from our friendly team.",
       },
     },
   },

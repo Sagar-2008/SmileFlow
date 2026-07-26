@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { Calculator, Sparkles, Check, DollarSign } from "lucide-react";
+import { motion } from "framer-motion";
+import { calculatorConfig } from "@/config/calculator";
+import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import type { ClinicConfig } from "@/types/site";
@@ -13,7 +16,7 @@ interface CostCalculatorProps {
 
 export default function CostCalculator({ config, onOpenBooking }: CostCalculatorProps) {
   const [selectedServices, setSelectedServices] = useState<string[]>(["srv-veneers"]);
-  const [financingMonths, setFinancingMonths] = useState<12 | 24 | 36>(24);
+  const [financingMonths, setFinancingMonths] = useState<number>(18);
 
   const toggleService = (id: string) => {
     setSelectedServices((prev) =>
@@ -26,55 +29,83 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
     return sum + (srv ? srv.estimatedPrice : 0);
   }, 0);
 
+  const activePeriod = calculatorConfig.financingPeriods.find(p => p.months === financingMonths) || 
+                       calculatorConfig.financingPeriods[0];
+
   const monthlyPayment = totalEstimatedCost > 0
-    ? Math.round(totalEstimatedCost / financingMonths)
+    ? Math.round(totalEstimatedCost / activePeriod.months)
     : 0;
 
   return (
-    <section id="calculator" className="py-24 bg-pine text-porcelain-50 relative overflow-hidden">
-      {/* Glow effects */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gold/10 blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-sage/10 blur-[140px] pointer-events-none" />
+    <section id="calculator" className="py-24 bg-secondary text-white relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/10 blur-[130px] pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-accent/10 blur-[130px] pointer-events-none" />
 
       <Container className="relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Information */}
-          <div className="lg:col-span-5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-gold-light text-xs font-mono uppercase tracking-wider mb-4 font-semibold">
+          
+          {/* Left Column: Info & Perks */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={animationsConfig.staggerContainer}
+            className="lg:col-span-5"
+          >
+            <motion.div
+              variants={animationsConfig.fadeInUp}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-white/10 border border-white/20 text-white text-xs font-mono uppercase tracking-wider mb-4 font-bold"
+            >
               <Calculator className="w-3.5 h-3.5" />
-              Transparent Self-Service Estimator
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
-              Estimate Your Treatment Investment
-            </h2>
-            <p className="text-base text-porcelain-100/80 leading-relaxed mb-8">
-              Dental care should never come with pricing surprises. Select your desired treatment procedures below to calculate estimated monthly payments with 0% APR financing options.
-            </p>
+              {calculatorConfig.subtitle}
+            </motion.div>
+            <motion.h2
+              variants={animationsConfig.fadeInUp}
+              className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white mb-6 leading-tight"
+            >
+              {calculatorConfig.title}
+            </motion.h2>
+            <motion.p
+              variants={animationsConfig.fadeInUp}
+              className="text-base text-white/80 leading-relaxed mb-8 font-medium"
+            >
+              {calculatorConfig.description}
+            </motion.p>
 
-            <div className="space-y-4 border-t border-porcelain-100/10 pt-6">
-              <div className="flex items-center gap-3 text-sm text-porcelain-100/90">
-                <Check className="w-5 h-5 text-gold shrink-0" />
-                <span>0% APR financing available up to 24 months (CareCredit)</span>
+            <motion.div
+              variants={animationsConfig.fadeInUp}
+              className="space-y-4 border-t border-white/15 pt-6"
+            >
+              <div className="flex items-start gap-3 text-sm text-white/90 font-medium">
+                <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <span>{calculatorConfig.financingNote}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-porcelain-100/90">
-                <Check className="w-5 h-5 text-gold shrink-0" />
-                <span>PPO insurance out-of-network claims automated</span>
+              <div className="flex items-start gap-3 text-sm text-white/90 font-medium">
+                <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <span>{calculatorConfig.insuranceNote}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-porcelain-100/90">
-                <Check className="w-5 h-5 text-gold shrink-0" />
-                <span>Complimentary initial 3D digital scan & consultation</span>
+              <div className="flex items-start gap-3 text-sm text-white/90 font-medium">
+                <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <span>{calculatorConfig.consultationNote}</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Column: Calculator Widget Card */}
-          <div className="lg:col-span-7">
-            <div className="bg-porcelain-50 text-ink rounded-3xl p-6 sm:p-8 shadow-premium border border-white/20">
-              <h3 className="font-display font-bold text-xl text-pine mb-4">
-                Step 1: Select Your Treatments
+          {/* Right Column: Interactive Widget Card */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={animationsConfig.scaleUp}
+            className="lg:col-span-7"
+          >
+            <div className="bg-bg-card text-text-main rounded-theme p-6 sm:p-8 shadow-premium border border-white/20">
+              <h3 className="font-sans font-extrabold text-lg text-secondary mb-4 leading-none">
+                {calculatorConfig.steps.step1}
               </h3>
 
-              {/* Service Selection Grid */}
+              {/* Service Grid Selectors */}
               <div className="grid sm:grid-cols-2 gap-3 mb-8">
                 {config.services.map((srv) => {
                   const isSelected = selectedServices.includes(srv.id);
@@ -82,23 +113,23 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
                     <button
                       key={srv.id}
                       onClick={() => toggleService(srv.id)}
-                      className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                      className={`p-4 rounded-theme border text-left transition-all duration-200 cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? "bg-pine/5 border-gold/80 shadow-sm"
-                          : "bg-porcelain-100/50 border-mist-dark/40 hover:bg-porcelain-100"
+                          ? "bg-primary/5 border-primary shadow-sm"
+                          : "bg-bg-base/70 border-border-theme hover:bg-bg-base"
                       }`}
                     >
                       <div>
-                        <p className="text-xs font-bold text-pine">{srv.name}</p>
-                        <p className="text-[11px] text-gold-dark font-mono font-semibold">
+                        <p className="text-xs font-black text-secondary">{srv.name}</p>
+                        <p className="text-[11px] text-primary font-mono font-bold mt-1">
                           ~${srv.estimatedPrice.toLocaleString()}
                         </p>
                       </div>
                       <div
                         className={`w-5 h-5 rounded-full flex items-center justify-center border transition-colors ${
                           isSelected
-                            ? "bg-gold border-gold text-ink"
-                            : "border-mist-dark"
+                            ? "bg-primary border-primary text-white"
+                            : "border-border-theme"
                         }`}
                       >
                         {isSelected && <Check className="w-3.5 h-3.5" />}
@@ -108,68 +139,70 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
                 })}
               </div>
 
-              <h3 className="font-display font-bold text-xl text-pine mb-4">
-                Step 2: Choose Financing Period
+              <h3 className="font-sans font-extrabold text-lg text-secondary mb-4 leading-none">
+                {calculatorConfig.steps.step2}
               </h3>
 
-              <div className="flex gap-3 mb-8">
-                {[12, 24, 36].map((months) => (
+              {/* Financing Periods Grid */}
+              <div className="grid grid-cols-3 gap-2 mb-8">
+                {calculatorConfig.financingPeriods.map((period) => (
                   <button
-                    key={months}
-                    onClick={() => setFinancingMonths(months as 12 | 24 | 36)}
-                    className={`flex-1 py-3 rounded-2xl text-xs font-bold font-mono transition-all cursor-pointer ${
-                      financingMonths === months
-                        ? "bg-pine text-porcelain-50 shadow-md"
-                        : "bg-porcelain-100 text-ink/70 hover:bg-mist border border-mist-dark/40"
+                    key={period.months}
+                    onClick={() => setFinancingMonths(period.months)}
+                    className={`py-3 rounded-theme text-xs font-bold font-mono transition-all duration-200 cursor-pointer text-center ${
+                      financingMonths === period.months
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-bg-base text-text-muted hover:bg-primary/5 border border-border-theme"
                     }`}
                   >
-                    {months} Months (0% APR)
+                    {period.months} Mo (0% APR)
                   </button>
                 ))}
               </div>
 
-              {/* Summary Display Box */}
-              <div className="bg-pine text-porcelain-50 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 border border-pine-light">
+              {/* Monthly Cost Summary Board */}
+              <div className="bg-secondary text-white rounded-theme p-5 flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/5 shadow-md">
                 <div>
-                  <span className="text-[10px] uppercase font-mono tracking-widest text-gold">
-                    Estimated Plan Total
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-primary font-bold">
+                    Estimated Total
                   </span>
-                  <div className="text-2xl font-bold font-mono text-white mt-0.5">
+                  <div className="text-2xl font-extrabold font-mono text-white mt-0.5">
                     ${totalEstimatedCost.toLocaleString()}
                   </div>
-                  <div className="text-xs text-porcelain-100/70 mt-1">
+                  <div className="text-xs text-white/70 mt-1 font-medium">
                     {selectedServices.length} treatment(s) selected
                   </div>
                 </div>
 
-                <div className="text-right sm:border-l sm:border-porcelain-100/20 sm:pl-6 w-full sm:w-auto">
-                  <span className="text-[10px] uppercase font-mono tracking-widest text-gold-light">
-                    Estimated Monthly
+                <div className="text-right sm:border-l sm:border-white/10 sm:pl-6 w-full sm:w-auto">
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-primary font-bold">
+                    Monthly Investment
                   </span>
-                  <div className="text-3xl font-bold font-mono text-gold mt-0.5 flex items-center justify-end">
-                    <DollarSign className="w-6 h-6 text-gold -mr-1" />
+                  <div className="text-3xl font-extrabold font-mono text-primary mt-0.5 flex items-center justify-end">
+                    <DollarSign className="w-6 h-6 text-primary -mr-1" />
                     {monthlyPayment}
-                    <span className="text-xs font-sans text-porcelain-100/80 font-normal">/mo</span>
+                    <span className="text-xs font-sans text-white/80 font-bold ml-1">/mo</span>
                   </div>
                 </div>
               </div>
 
-              {/* CTA button */}
+              {/* Submit CTA */}
               <Button
-                variant="gold"
+                variant="accent"
                 size="lg"
                 onClick={() =>
                   onOpenBooking(
-                    `Selected Plan (${selectedServices.length} items - ~$${monthlyPayment}/mo)`
+                    `Estimator plan: ${selectedServices.length} procedures (~$${monthlyPayment}/mo)`
                   )
                 }
-                icon={<Sparkles className="w-4 h-4 text-ink" />}
-                className="w-full mt-6 shadow-md"
+                icon={<Sparkles className="w-4 h-4" />}
+                className="w-full mt-6"
               >
-                Apply Financing & Reserve Consultation
+                {calculatorConfig.ctaText}
               </Button>
             </div>
-          </div>
+          </motion.div>
+
         </div>
       </Container>
     </section>

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { HelpCircle, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import type { ClinicConfig } from "@/types/site";
 
@@ -17,48 +19,74 @@ export default function FAQ({ config }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="py-24 bg-porcelain-100 relative overflow-hidden border-b border-mist-dark/30">
+    <section id="faq" className="py-24 bg-bg-base relative overflow-hidden border-b border-border-theme/40">
       <Container>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pine/5 border border-pine/10 text-pine text-xs font-mono uppercase tracking-wider mb-4 font-semibold">
-            <HelpCircle className="w-3.5 h-3.5 text-gold-dark" />
+        {/* Section Header */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={animationsConfig.staggerContainer}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <motion.div
+            variants={animationsConfig.fadeInUp}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-accent" />
             Common Questions
-          </div>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-pine tracking-tight mb-4">
+          </motion.div>
+          <motion.h2
+            variants={animationsConfig.fadeInUp}
+            className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
+          >
             Frequently Asked Questions
-          </h2>
-          <p className="text-base text-ink/70 leading-relaxed">
-            Everything you need to know about your first visit, insurance coverage, and procedures at {config.name}.
-          </p>
-        </div>
+          </motion.h2>
+          <motion.p
+            variants={animationsConfig.fadeInUp}
+            className="text-base text-text-muted font-medium"
+          >
+            Find quick answers to common questions about dental treatments, booking, clinical procedures, and insurance coverages.
+          </motion.p>
+        </motion.div>
 
+        {/* Accordions */}
         <div className="max-w-3xl mx-auto space-y-4">
           {config.faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="bg-porcelain-50 rounded-2xl border border-mist-dark/50 overflow-hidden shadow-sm transition-all"
+                className="bg-bg-card rounded-theme border border-border-theme overflow-hidden shadow-card transition-all duration-200"
               >
                 <button
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left font-display font-semibold text-lg text-pine hover:text-gold-dark transition-colors cursor-pointer"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left font-sans font-extrabold text-base sm:text-lg text-secondary hover:text-primary transition-colors cursor-pointer"
                 >
                   <span>{faq.question}</span>
                   <div
-                    className={`w-8 h-8 rounded-full bg-porcelain-100 flex items-center justify-center text-pine shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 bg-gold/20 text-gold-dark" : ""
+                    className={`w-7 h-7 rounded-full bg-bg-base flex items-center justify-center text-secondary shrink-0 transition-transform duration-300 ${
+                      isOpen ? "rotate-180 bg-primary/10 text-primary" : ""
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
 
-                {isOpen && (
-                  <div className="px-6 pb-6 text-sm text-ink/75 leading-relaxed border-t border-mist-dark/20 pt-4 animate-in fade-in">
-                    {faq.answer}
-                  </div>
-                )}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                    >
+                      <div className="px-6 pb-6 text-sm text-text-muted font-medium leading-relaxed border-t border-border-theme/40 pt-4">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}

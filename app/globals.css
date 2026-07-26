@@ -1,51 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-    --color-porcelain: #FBF9F5;
-    --color-porcelain-50: #FFFFFF;
-    --color-porcelain-100: #F4F0E8;
-    --color-ink: #0D1612;
-    --color-ink-soft: #1D2A24;
-    --color-pine: #0D2820;
-    --color-pine-light: #184236;
-    --color-sage: #8CA593;
-    --color-sage-light: #C2D4C7;
-    --color-sage-dark: #4A6352;
-    --color-gold: #C6A066;
-    --color-gold-light: #E8D4B5;
-    --color-gold-dark: #9A753C;
-    --color-mist: #EAE6DD;
-    --color-mist-dark: #D4CEBF;
+    --color-primary: var(--primary-color, #0284c7);
+    --color-secondary: var(--secondary-color, #0f172a);
+    --color-accent: var(--accent-color, #f97316);
+    --color-bg-base: var(--bg-color, #f8fafc);
+    --color-bg-card: var(--bg-card, #ffffff);
+    --color-text-main: var(--text-color, #0f172a);
+    --color-text-muted: var(--text-muted, #475569);
+    --color-border-theme: var(--border-color, #e2e8f0);
 
     --font-display: var(--font-fraunces);
     --font-sans: var(--font-inter);
     --font-mono: var(--font-plex-mono);
 
-    --shadow-premium: 0 24px 64px -16px rgba(13, 40, 32, 0.16);
-    --shadow-card: 0 10px 32px -10px rgba(13, 40, 32, 0.08);
-    --shadow-glow: 0 0 40px -10px rgba(198, 160, 102, 0.35);
+    --radius-theme: var(--border-radius, 1rem);
 
-    --animate-float: float 6s ease-in-out infinite;
-    --animate-float-slow: float 9s ease-in-out infinite 1.5s;
-    --animate-pulse-subtle: pulse-subtle 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-@keyframes pulse-subtle {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.6;
-    }
+    --shadow-premium: var(--shadow-lg-val, 0 20px 25px -5px rgba(15, 23, 42, 0.08));
+    --shadow-card: var(--shadow-md-val, 0 10px 15px -3px rgba(15, 23, 42, 0.05));
+    --shadow-glow: 0 0 40px -10px rgba(2, 132, 199, 0.2);
 }
 
 @layer base {
@@ -56,17 +29,17 @@
 
     body {
         font-feature-settings: "ss01" 1, "cv01" 1;
-        background-color: var(--color-porcelain);
-        color: var(--color-ink);
+        background-color: var(--color-bg-base);
+        color: var(--color-text-main);
     }
 
     ::selection {
-        background-color: var(--color-gold-light);
-        color: var(--color-ink);
+        background-color: var(--color-primary);
+        color: #ffffff;
     }
 
     :focus-visible {
-        outline: 2px solid var(--color-gold-dark);
+        outline: 2px solid var(--color-primary);
         outline-offset: 3px;
     }
 
@@ -75,11 +48,11 @@
     }
 
     ::-webkit-scrollbar-track {
-        background: var(--color-porcelain);
+        background: var(--color-bg-base);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--color-mist-dark);
+        background: var(--color-border-theme);
         border-radius: 999px;
     }
 }
@@ -89,22 +62,15 @@
 }
 
 @utility glass-panel {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-@utility glass-panel-dark {
-    background: rgba(13, 40, 32, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 @utility bg-grid-pattern {
     background-image: 
-        linear-gradient(to right, rgba(13, 40, 32, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(13, 40, 32, 0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
+        linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
 }
