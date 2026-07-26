@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, Sparkles, Check, DollarSign } from "lucide-react";
+import { Calculator, Sparkles, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { calculatorConfig } from "@/config/calculator";
 import { animationsConfig } from "@/config/animations";
@@ -15,8 +15,8 @@ interface CostCalculatorProps {
 }
 
 export default function CostCalculator({ config, onOpenBooking }: CostCalculatorProps) {
-  const [selectedServices, setSelectedServices] = useState<string[]>(["srv-veneers"]);
-  const [financingMonths, setFinancingMonths] = useState<number>(18);
+  const [selectedServices, setSelectedServices] = useState<string[]>(["srv-rootcanal"]);
+  const [financingMonths, setFinancingMonths] = useState<number>(12);
 
   const toggleService = (id: string) => {
     setSelectedServices((prev) =>
@@ -35,6 +35,8 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
   const monthlyPayment = totalEstimatedCost > 0
     ? Math.round(totalEstimatedCost / activePeriod.months)
     : 0;
+
+  const symbol = calculatorConfig.currencySymbol || "₹";
 
   return (
     <section id="calculator" className="py-24 bg-secondary text-white relative overflow-hidden">
@@ -122,7 +124,7 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
                       <div>
                         <p className="text-xs font-black text-secondary">{srv.name}</p>
                         <p className="text-[11px] text-primary font-mono font-bold mt-1">
-                          ~${srv.estimatedPrice.toLocaleString()}
+                          ~{symbol}{srv.estimatedPrice.toLocaleString("en-IN")}
                         </p>
                       </div>
                       <div
@@ -155,7 +157,7 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
                         : "bg-bg-base text-text-muted hover:bg-primary/5 border border-border-theme"
                     }`}
                   >
-                    {period.months} Mo (0% APR)
+                    {period.label}
                   </button>
                 ))}
               </div>
@@ -167,20 +169,20 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
                     Estimated Total
                   </span>
                   <div className="text-2xl font-extrabold font-mono text-white mt-0.5">
-                    ${totalEstimatedCost.toLocaleString()}
+                    {symbol}{totalEstimatedCost.toLocaleString("en-IN")}
                   </div>
                   <div className="text-xs text-white/70 mt-1 font-medium">
-                    {selectedServices.length} treatment(s) selected
+                    {selectedServices.length} procedure(s) selected
                   </div>
                 </div>
 
                 <div className="text-right sm:border-l sm:border-white/10 sm:pl-6 w-full sm:w-auto">
                   <span className="text-[10px] uppercase font-mono tracking-widest text-primary font-bold">
-                    Monthly Investment
+                    Monthly EMI
                   </span>
                   <div className="text-3xl font-extrabold font-mono text-primary mt-0.5 flex items-center justify-end">
-                    <DollarSign className="w-6 h-6 text-primary -mr-1" />
-                    {monthlyPayment}
+                    <span className="text-2xl text-primary mr-0.5">{symbol}</span>
+                    {monthlyPayment.toLocaleString("en-IN")}
                     <span className="text-xs font-sans text-white/80 font-bold ml-1">/mo</span>
                   </div>
                 </div>
@@ -192,7 +194,7 @@ export default function CostCalculator({ config, onOpenBooking }: CostCalculator
                 size="lg"
                 onClick={() =>
                   onOpenBooking(
-                    `Estimator plan: ${selectedServices.length} procedures (~$${monthlyPayment}/mo)`
+                    `Selected Plan: ${selectedServices.length} procedures (~${symbol}${monthlyPayment}/mo EMI)`
                   )
                 }
                 icon={<Sparkles className="w-4 h-4" />}

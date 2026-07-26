@@ -12,15 +12,15 @@ export interface BrandingConfig {
 }
 
 export const brandingConfig: BrandingConfig = {
-  name: "Evergreen Dental Care",
-  shortName: "Evergreen",
-  establishedYear: 2015,
+  name: "Apex Dental & Implant Centre",
+  shortName: "Apex Dental",
+  establishedYear: 2012,
   logo: {
-    mark: "E",
-    wordmark: "EVERGREEN",
-    wordmarkSuffix: "DENTAL CARE",
+    mark: "A",
+    wordmark: "APEX DENTAL",
+    wordmarkSuffix: "IMPLANT & COSMETIC CENTRE",
   },
-  tagline: "Gentle, Modern Dental Care You Can Trust",
+  tagline: "Gentle, Modern Dental Care for Your Family",
   description:
-    "At Evergreen Dental Care, we combine advanced dental technology with a warm, patient-first approach to keep your family's smiles healthy and bright.",
+    "Apex Dental & Implant Centre is your trusted local clinic committed to painless treatments, 3D digital diagnostics, and honest family dental health.",
 };

@@ -10,11 +10,11 @@
     --color-text-muted: var(--text-muted, #475569);
     --color-border-theme: var(--border-color, #e2e8f0);
 
-    --font-display: var(--font-fraunces);
-    --font-sans: var(--font-inter);
-    --font-mono: var(--font-plex-mono);
+    --font-display: var(--font-jakarta);
+    --font-sans: var(--font-jakarta);
+    --font-mono: var(--font-inter);
 
-    --radius-theme: var(--border-radius, 1rem);
+    --radius-theme: var(--border-radius, 0.75rem);
 
     --shadow-premium: var(--shadow-lg-val, 0 20px 25px -5px rgba(15, 23, 42, 0.08));
     --shadow-card: var(--shadow-md-val, 0 10px 15px -3px rgba(15, 23, 42, 0.05));

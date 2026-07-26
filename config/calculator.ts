@@ -1,4 +1,5 @@
 export interface CalculatorConfig {
+  currencySymbol: string;
   title: string;
   subtitle: string;
   description: string;
@@ -18,21 +19,22 @@ export interface CalculatorConfig {
 }
 
 export const calculatorConfig: CalculatorConfig = {
-  title: "Calculate Your Treatment Cost",
-  subtitle: "Self-Service Cost Estimator",
+  currencySymbol: "₹",
+  title: "Estimate Your Treatment Cost",
+  subtitle: "Interactive Cost & EMI Estimator",
   description:
-    "We believe in transparent pricing. Select your desired treatments to view estimated costs and monthly payment options under 0% APR dental financing.",
+    "We believe in 100% transparent pricing. Select your required treatment procedures below to calculate estimated monthly payments with 0% interest EMI options.",
   steps: {
-    step1: "1. Select Treatment Procedures",
-    step2: "2. Choose Payment Plan Duration",
+    step1: "1. Select Dental Procedures",
+    step2: "2. Choose EMI Tenure",
   },
   financingPeriods: [
-    { months: 12, apr: 0, label: "12 Months (0% APR)" },
-    { months: 18, apr: 0, label: "18 Months (0% APR)" },
-    { months: 24, apr: 0, label: "24 Months (0% APR)" },
+    { months: 6, apr: 0, label: "6 Months (0% EMI)" },
+    { months: 12, apr: 0, label: "12 Months (0% EMI)" },
+    { months: 18, apr: 0, label: "18 Months (0% EMI)" },
   ],
-  insuranceNote: "We accept most major PPO dental insurance plans and file claims on your behalf.",
-  financingNote: "Flexible monthly plans available through CareCredit with easy online pre-approval.",
-  consultationNote: "Initial checkup & consultation fee goes toward your treatment cost.",
-  ctaText: "Apply Financing & Book Appointment",
+  insuranceNote: "We assist with corporate health claims and dental reimbursement documentation.",
+  financingNote: "Easy 0% interest EMI available with instant in-office approval.",
+  consultationNote: "Consultation and digital X-ray charges are credited toward your treatment.",
+  ctaText: "Apply 0% EMI & Book Appointment",
 };

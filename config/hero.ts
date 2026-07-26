@@ -13,24 +13,24 @@ export interface HeroConfig {
 }
 
 export const heroConfig: HeroConfig = {
-  eyebrow: "Welcome to Modern Family Dentistry",
+  eyebrow: "Trusted Family & Cosmetic Dentistry",
   headline: [
-    "Gentle dental care.",
-    "Warm environment.",
-    "Healthy smiles.",
+    "Painless dental care.",
+    "Modern technology.",
+    "Healthy, confident smiles.",
   ],
   description:
-    "We provide complete dental care for patients of all ages. From preventive checkups to cosmetic smile makeovers and dental implants, our focus is always on your comfort.",
+    "From routine teeth cleaning and painless root canals to laser whitening, clear aligners, and dental implants—we deliver gentle, affordable care for every family member.",
   trustBadge: {
     rating: "4.9",
-    reviewCount: "480+",
-    platform: "Google Verified Reviews",
+    reviewCount: "520+",
+    platform: "Google Patient Reviews",
   },
-  availabilityNote: "Appointments available this week.",
+  availabilityNote: "Appointments available today.",
   stats: [
-    { value: "10+", label: "Years in Practice" },
-    { value: "5,000+", label: "Happy Patients" },
-    { value: "99%", label: "Satisfaction Rate" },
+    { value: "14+", label: "Years in Practice" },
+    { value: "15,000+", label: "Happy Smiles" },
+    { value: "99.2%", label: "Patient Satisfaction" },
     { value: "0 min", label: "Average Wait Time" },
   ],
   heroImage: "/images/hero.jpg",

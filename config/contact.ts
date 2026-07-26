@@ -15,20 +15,18 @@ export interface ContactConfig {
 }
 
 export const contactConfig: ContactConfig = {
-  phone: "+15105553344",
-  phoneDisplay: "(510) 555-3344",
-  emergencyPhone: "(510) 555-0911",
-  email: "care@evergreendental.com",
+  phone: "+919876543210",
+  phoneDisplay: "+91 98765 43210",
+  emergencyPhone: "+91 80 4567 8900",
+  email: "care@apexdental.in",
   address: {
-    street: "450 University Avenue",
-    suite: "Suite B",
-    cityStateZip: "Palo Alto, CA 94301",
-    mapUrl: "https://maps.google.com/?q=450+University+Ave+Palo+Alto",
+    street: "Plot 42, 100 Feet Road",
+    suite: "Indiranagar",
+    cityStateZip: "Bengaluru, Karnataka 560038",
+    mapUrl: "https://maps.google.com/?q=100+Feet+Road+Indiranagar+Bengaluru",
   },
   hours: [
-    { day: "Monday – Thursday", hours: "8:00 AM – 5:00 PM" },
-    { day: "Friday", hours: "8:00 AM – 2:00 PM" },
-    { day: "Saturday", hours: "By Appointment Only" },
-    { day: "Sunday", hours: "Closed" },
+    { day: "Monday – Saturday", hours: "9:00 AM – 8:30 PM" },
+    { day: "Sunday", hours: "10:00 AM – 2:00 PM (By Appt)" },
   ],
 };

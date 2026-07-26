@@ -1,26 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 
-const fraunces = Fraunces({
+const jakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  variable: "--font-jakarta",
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-plex-mono",
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -46,7 +38,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#EEEAE2",
+  themeColor: "#0284c7",
   width: "device-width",
   initialScale: 1,
 };
@@ -59,9 +51,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${plexMono.variable}`}
+      className={`${jakartaSans.variable} ${inter.variable}`}
     >
-      <body className="bg-porcelain font-sans text-ink antialiased">{children}</body>
+      <body className="bg-bg-base font-sans text-text-main antialiased">{children}</body>
     </html>
   );
 }

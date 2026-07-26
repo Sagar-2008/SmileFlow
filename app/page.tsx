@@ -12,12 +12,10 @@ import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 import Footer from "@/components/home/Footer";
 import BookingModal from "@/components/home/BookingModal";
-import WhiteLabelSwitcher from "@/components/home/WhiteLabelSwitcher";
 import { siteConfig } from "@/config/site";
-import type { ClinicConfig } from "@/types/site";
 
 export default function Home() {
-  const [activeConfig, setActiveConfig] = useState<ClinicConfig>(siteConfig);
+  const activeConfig = siteConfig;
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingInitialService, setBookingInitialService] = useState<string | undefined>();
 
@@ -26,7 +24,7 @@ export default function Home() {
     setBookingModalOpen(true);
   };
 
-  // Construct CSS style properties based on active config theme settings
+  // Construct CSS style properties based on config theme settings
   const themeStyles = {
     "--primary-color": activeConfig.theme.primaryColor,
     "--secondary-color": activeConfig.theme.secondaryColor,
@@ -56,16 +54,16 @@ export default function Home() {
       {/* Interactive Before/After Smile Transformation Gallery */}
       <SmileTransformation config={activeConfig} onOpenBooking={handleOpenBooking} />
 
-      {/* Bespoke Services & Pricing Catalog */}
+      {/* Services & Pricing Catalog */}
       <Services config={activeConfig} onOpenBooking={handleOpenBooking} />
 
-      {/* Interactive Cost & 0% Financing Calculator */}
+      {/* Interactive Cost & EMI Calculator */}
       <CostCalculator config={activeConfig} onOpenBooking={handleOpenBooking} />
 
       {/* Doctor & Specialist Roster */}
       <DoctorShowcase config={activeConfig} onOpenBooking={handleOpenBooking} />
 
-      {/* Tech & Patient Comfort Experience Amenities */}
+      {/* Tech & Patient Comfort Amenities */}
       <ClinicExperience config={activeConfig} />
 
       {/* Verified Testimonials */}
@@ -77,18 +75,12 @@ export default function Home() {
       {/* Footer */}
       <Footer config={activeConfig} onOpenBooking={handleOpenBooking} />
 
-      {/* 4-Step Interactive Appointment Booking Modal */}
+      {/* Appointment Booking Modal */}
       <BookingModal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
         config={activeConfig}
         initialService={bookingInitialService}
-      />
-
-      {/* Floating White-Label Reseller Demo Switcher Drawer */}
-      <WhiteLabelSwitcher
-        currentConfig={activeConfig}
-        onSelectConfig={setActiveConfig}
       />
     </main>
   );
