@@ -1,3 +1,5 @@
+import { brandingConfig } from "./branding";
+
 export interface FooterConfig {
   complianceNote: string;
   copyright: string;
@@ -5,12 +7,12 @@ export interface FooterConfig {
 }
 
 export const footerConfig: FooterConfig = {
-  complianceNote: "Evergreen Dental Care is fully HIPAA compliant and ADA accessible. Our office operates in full compliance with state and federal healthcare standards.",
-  copyright: "Evergreen Dental Care. All rights reserved.",
+  complianceNote: `${brandingConfig.clinicName} is fully compliant with state and national healthcare standards. Our clinic operates under strict sterilization protocols.`,
+  copyright: brandingConfig.copyright,
   links: [
     { label: "Privacy Policy", href: "#privacy" },
     { label: "Terms of Service", href: "#terms" },
-    { label: "Accessibility Statement", href: "#accessibility" },
-    { label: "Patient Portal", href: "#portal" },
+    { label: "Patient Guidelines", href: "#guidelines" },
+    { label: "Book Appointment", href: "#services" },
   ],
 };

@@ -1,8 +1,11 @@
+import { brandingConfig } from "./branding";
 import type { ClinicHours } from "@/types/site";
 
 export interface ContactConfig {
   phone: string;
   phoneDisplay: string;
+  whatsapp: string;
+  whatsappDisplay: string;
   emergencyPhone: string;
   email: string;
   address: {
@@ -15,18 +18,12 @@ export interface ContactConfig {
 }
 
 export const contactConfig: ContactConfig = {
-  phone: "+919876543210",
-  phoneDisplay: "+91 98765 43210",
-  emergencyPhone: "+91 80 4567 8900",
-  email: "care@apexdental.in",
-  address: {
-    street: "Plot 42, 100 Feet Road",
-    suite: "Indiranagar",
-    cityStateZip: "Bengaluru, Karnataka 560038",
-    mapUrl: "https://maps.google.com/?q=100+Feet+Road+Indiranagar+Bengaluru",
-  },
-  hours: [
-    { day: "Monday – Saturday", hours: "9:00 AM – 8:30 PM" },
-    { day: "Sunday", hours: "10:00 AM – 2:00 PM (By Appt)" },
-  ],
+  phone: brandingConfig.phone,
+  phoneDisplay: brandingConfig.phoneDisplay,
+  whatsapp: brandingConfig.whatsapp,
+  whatsappDisplay: brandingConfig.whatsappDisplay,
+  emergencyPhone: brandingConfig.emergencyPhone,
+  email: brandingConfig.email,
+  address: brandingConfig.address,
+  hours: brandingConfig.hours,
 };

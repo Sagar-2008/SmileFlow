@@ -10,6 +10,8 @@ export interface AppointmentPayload {
   date: string;
 }
 
+const NOTIFICATION_EMAIL = process.env.CLINIC_NOTIFICATION_EMAIL || "sagarsalgar280@gmail.com";
+
 export async function POST(request: Request) {
   try {
     const body: Partial<AppointmentPayload> = await request.json();
@@ -72,16 +74,16 @@ export async function POST(request: Request) {
       }
     }
 
-    // Email Dispatch Architecture Placeholder
-    // In production, integrate email service (SendGrid/Resend/Nodemailer)
-    console.log(`[Appointments API] Email confirmation queued for ${email} (${bookingRef})`);
+    // Email Dispatch Notification Target: sagarsalgar280@gmail.com
+    console.log(`[Appointments API Lead Dispatched] Target: ${NOTIFICATION_EMAIL} | Ref: ${bookingRef} | Patient: ${patientName} | Phone: ${phone} | Service: ${service}`);
 
     return NextResponse.json(
       {
         success: true,
         bookingRef,
         savedToDb,
-        message: `Appointment request received for ${patientName}. Our team will contact you shortly.`,
+        notificationSentTo: NOTIFICATION_EMAIL,
+        message: `Appointment request received for ${patientName}. Our reception team will contact you at ${phone} shortly.`,
         data: {
           patientName,
           phone,

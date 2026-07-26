@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 
@@ -10,9 +10,10 @@ const jakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -51,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakartaSans.variable} ${inter.variable}`}
+      className={`${jakartaSans.variable} ${outfit.variable}`}
     >
       <body className="bg-bg-base font-sans text-text-main antialiased">{children}</body>
     </html>

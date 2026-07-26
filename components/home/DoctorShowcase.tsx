@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { Award, Calendar, CheckCircle2, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
+import { UserCheck, Award, Calendar, Clock } from "lucide-react";
+import Image from "next/image";
 import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
@@ -15,7 +15,7 @@ interface DoctorShowcaseProps {
 
 export default function DoctorShowcase({ config, onOpenBooking }: DoctorShowcaseProps) {
   return (
-    <section id="doctors" className="py-24 bg-bg-base relative overflow-hidden border-b border-border-theme/40">
+    <section id="doctors" className="py-24 bg-bg-card relative overflow-hidden border-b border-border-theme/40">
       <Container>
         {/* Section Header */}
         <motion.div
@@ -27,89 +27,99 @@ export default function DoctorShowcase({ config, onOpenBooking }: DoctorShowcase
         >
           <motion.div
             variants={animationsConfig.fadeInUp}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
           >
-            <Award className="w-3.5 h-3.5 text-accent" />
-            Clinical Excellence
+            <UserCheck className="w-4 h-4" />
+            Clinical Leadership
           </motion.div>
           <motion.h2
             variants={animationsConfig.fadeInUp}
-            className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
           >
-            Meet Our Specialist Dentists
+            Meet Our Dental Specialists
           </motion.h2>
           <motion.p
             variants={animationsConfig.fadeInUp}
-            className="text-base text-text-muted font-medium"
+            className="text-base sm:text-lg text-text-muted font-medium"
           >
-            Our dental professionals combine academic research with warm, personalized clinical care to deliver optimal health outcomes.
+            Our experienced specialists bring compassionate care, MDS qualifications, and computer-guided precision to every treatment.
           </motion.p>
         </motion.div>
 
-        {/* Doctors Grid with animation cards */}
+        {/* Doctor Roster Cards */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={animationsConfig.staggerContainer}
-          className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto"
+          className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
         >
           {config.doctors.map((doctor) => (
             <motion.div
               key={doctor.id}
               variants={animationsConfig.fadeInUp}
-              className="bg-bg-card rounded-theme p-6 sm:p-8 shadow-card border border-border-theme flex flex-col justify-between hover:shadow-premium transition-all duration-300"
+              className="bg-bg-base/80 rounded-theme p-6 sm:p-7 border border-border-theme shadow-card hover:shadow-2xl hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
-                {/* Doctor Portrait Image */}
-                <div className="relative aspect-[4/3] w-full rounded-[calc(var(--border-radius)-0.25rem)] overflow-hidden mb-6 shadow-sm">
+                {/* Image Container with Zoom and Floating Status Badges */}
+                <div className="relative aspect-[4/3] rounded-[calc(var(--border-radius)-0.25rem)] overflow-hidden mb-6 border border-border-theme/60 shadow-md">
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
                     fill
-                    className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-theme bg-secondary/90 text-accent text-[9px] font-mono uppercase tracking-wider backdrop-blur-sm font-bold">
-                    {doctor.experienceYears}+ Years Clinical Practice
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent" />
+                  
+                  {/* Floating Available Today Badge */}
+                  <div className="absolute top-4 right-4 bg-emerald-600/90 text-white text-xs font-mono font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                    <span>Available Today</span>
+                  </div>
+
+                  {/* Doctor Title Overlay */}
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <span className="text-xs font-mono font-extrabold uppercase tracking-wider text-accent bg-secondary/90 px-3 py-1 rounded-theme backdrop-blur-sm inline-block mb-1">
+                      {doctor.specialty}
+                    </span>
+                    <h3 className="font-display font-black text-2xl text-white leading-snug">
+                      {doctor.name}
+                    </h3>
                   </div>
                 </div>
 
-                {/* Name & Role */}
-                <h3 className="font-sans font-extrabold text-2xl text-secondary mb-1 leading-snug">
-                  {doctor.name}
-                </h3>
-                <p className="text-xs font-mono font-bold text-primary uppercase tracking-wider mb-4">
-                  {doctor.title}
-                </p>
-
-                <div className="flex items-center gap-2 text-xs font-semibold text-secondary bg-bg-base p-3 rounded-theme mb-4 border border-border-theme/40">
-                  <GraduationCap className="w-4 h-4 text-primary shrink-0" />
-                  <span>{doctor.qualifications}</span>
+                {/* Experience & Qualification Pills */}
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="text-xs font-mono font-bold text-primary bg-primary/10 px-3 py-1 rounded-theme flex items-center gap-1.5">
+                    <Award className="w-3.5 h-3.5 text-primary" />
+                    {doctor.experienceYears}+ Years Clinical Practice
+                  </span>
+                  <span className="text-xs font-mono font-bold text-text-muted bg-bg-card border border-border-theme px-3 py-1 rounded-theme">
+                    {doctor.qualifications}
+                  </span>
                 </div>
 
-                <p className="text-sm text-text-muted font-medium leading-relaxed mb-6">
+                <p className="text-sm text-text-main font-medium leading-relaxed mb-6">
                   {doctor.bio}
                 </p>
 
-                <div className="flex items-center gap-2 text-xs text-text-muted font-bold mb-6">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
-                  <span>Specialty Focus: <strong className="text-secondary font-black">{doctor.specialty}</strong></span>
+                {/* Availability info */}
+                <div className="flex items-center gap-2 text-xs text-text-muted font-bold mb-6 bg-bg-card border border-border-theme p-3 rounded-theme">
+                  <Clock className="w-4 h-4 text-primary shrink-0" />
+                  <span>Clinic Days: {doctor.availability}</span>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-border-theme flex items-center justify-between gap-4">
-                <span className="text-xs font-mono text-text-muted font-bold">
-                  Schedule: {doctor.availability}
-                </span>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => onOpenBooking(`Consultation with ${doctor.name}`)}
-                  icon={<Calendar className="w-3.5 h-3.5" />}
-                >
-                  Book Appointment
-                </Button>
-              </div>
+              {/* Action Button */}
+              <Button
+                variant="primary"
+                size="md"
+                onClick={() => onOpenBooking(`Consultation with ${doctor.name}`)}
+                icon={<Calendar className="w-4 h-4 text-white" />}
+                className="w-full font-extrabold shadow-sm hover:scale-[1.02] transition-transform"
+              >
+                Book Consultation with {doctor.name.split(" ")[1] || "Specialist"}
+              </Button>
             </motion.div>
           ))}
         </motion.div>

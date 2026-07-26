@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { Sparkles, Clock, Scan, Zap, Shield, Heart } from "lucide-react";
 import { motion } from "framer-motion";
+import { Sparkles, Clock, Scan, Zap, ShieldCheck } from "lucide-react";
 import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
 import type { ClinicConfig } from "@/types/site";
@@ -11,107 +10,82 @@ interface ClinicExperienceProps {
   config: ClinicConfig;
 }
 
-const iconMap: Record<string, React.ReactNode> = {
-  Clock: <Clock className="w-5 h-5 text-primary" />,
-  Scan: <Scan className="w-5 h-5 text-primary" />,
-  Zap: <Zap className="w-5 h-5 text-primary" />,
-  Sparkles: <Sparkles className="w-5 h-5 text-primary" />,
-};
-
 export default function ClinicExperience({ config }: ClinicExperienceProps) {
+  const iconMap: Record<string, React.ReactNode> = {
+    Clock: <Clock className="w-7 h-7" />,
+    Scan: <Scan className="w-7 h-7" />,
+    Zap: <Zap className="w-7 h-7" />,
+    Sparkles: <Sparkles className="w-7 h-7" />,
+  };
+
   return (
-    <section id="experience" className="py-24 bg-bg-card relative overflow-hidden border-b border-border-theme/40">
+    <section className="py-24 bg-bg-base relative overflow-hidden border-b border-border-theme/40">
       <Container>
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column: Visual Interior Showcase Card */}
+        {/* Section Header */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={animationsConfig.staggerContainer}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={animationsConfig.scaleUp}
-            className="lg:col-span-6 relative"
+            variants={animationsConfig.fadeInUp}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
           >
-            <div className="relative aspect-[4/3] rounded-theme overflow-hidden shadow-premium border border-border-theme bg-bg-base p-3">
-              <div className="relative h-full w-full rounded-[calc(var(--border-radius)-0.5rem)] overflow-hidden">
-                <Image
-                  src="/images/clinic.jpg"
-                  alt="Clinic Treatment Office Lounge"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/70 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 text-white">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-accent bg-secondary/80 px-3 py-1 rounded-theme backdrop-blur-sm font-bold">
-                    Safe & Sanitary Clinical Space
-                  </span>
-                  <h3 className="font-sans font-extrabold text-2xl mt-2 text-white">
-                    Built for Your Comfort
-                  </h3>
-                  <p className="text-xs text-white/80 mt-1 font-medium">
-                    Strict sterilization guidelines, comfortable amenities, and on-time doctor scheduling.
-                  </p>
+            <ShieldCheck className="w-4 h-4 text-primary" />
+            Patient Comfort Standards
+          </motion.div>
+          <motion.h2
+            variants={animationsConfig.fadeInUp}
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
+          >
+            Modern Dental Technology & Comfort
+          </motion.h2>
+          <motion.p
+            variants={animationsConfig.fadeInUp}
+            className="text-base sm:text-lg text-text-muted font-medium"
+          >
+            We combine painless clinical equipment, 3D digital impressions, and zero waiting room delays to make every visit relaxed and efficient.
+          </motion.p>
+        </motion.div>
+
+        {/* 4-Card High-Impact Vibrant Grid Layout */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={animationsConfig.staggerContainer}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+          {config.amenities.map((item) => (
+            <motion.div
+              key={item.title}
+              variants={animationsConfig.fadeInUp}
+              className="bg-bg-card rounded-theme p-7 sm:p-8 border border-border-theme shadow-card hover:shadow-2xl hover:-translate-y-2 hover:border-primary/40 transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div>
+                {/* Vibrant Icon Box */}
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/15 via-cyan-500/10 to-primary/20 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  {iconMap[item.iconName] || <Sparkles className="w-7 h-7" />}
                 </div>
+
+                <h3 className="font-display font-black text-xl text-secondary mb-3 leading-snug group-hover:text-primary transition-colors">
+                  {item.title}
+                </h3>
+
+                <p className="text-sm text-text-muted font-medium leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-            </div>
-          </motion.div>
 
-          {/* Right Column: Title, Copy & Perks Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={animationsConfig.staggerContainer}
-            className="lg:col-span-6"
-          >
-            <motion.div
-              variants={animationsConfig.fadeInUp}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
-            >
-              <Heart className="w-3.5 h-3.5 text-accent" />
-              Patient comfort
+              <div className="mt-8 pt-4 border-t border-border-theme/60 flex items-center justify-between text-xs font-mono font-bold text-primary">
+                <span>Clinical Standard</span>
+                <ShieldCheck className="w-4 h-4 text-primary" />
+              </div>
             </motion.div>
-            
-            <motion.h2
-              variants={animationsConfig.fadeInUp}
-              className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-6"
-            >
-              A Better Dental Experience
-            </motion.h2>
-            
-            <motion.p
-              variants={animationsConfig.fadeInUp}
-              className="text-base text-text-muted leading-relaxed mb-8 font-medium"
-            >
-              We have eliminated the classic friction points of old-fashioned dental visits. Enjoy modern diagnostic scanners, drill-free laser fillings, and gentle patient comforts designed to put you at ease.
-            </motion.p>
-
-            {/* Perks Cards Grid */}
-            <motion.div
-              variants={animationsConfig.staggerContainer}
-              className="grid sm:grid-cols-2 gap-4"
-            >
-              {config.amenities.map((amenity, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={animationsConfig.fadeInUp}
-                  className="bg-bg-base rounded-theme p-5 border border-border-theme shadow-card hover:border-primary/50 transition-colors duration-200"
-                >
-                  <div className="w-10 h-10 rounded-theme bg-primary/10 flex items-center justify-center mb-3">
-                    {iconMap[amenity.iconName] || <Shield className="w-5 h-5 text-primary" />}
-                  </div>
-                  <h4 className="font-sans font-extrabold text-base text-secondary mb-1 leading-snug">
-                    {amenity.title}
-                  </h4>
-                  <p className="text-xs text-text-muted leading-relaxed font-semibold">
-                    {amenity.description}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-        </div>
+          ))}
+        </motion.div>
       </Container>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { Sparkles, MoveHorizontal, CheckCircle2 } from "lucide-react";
+import { Sparkles, MoveHorizontal, CheckCircle2, SlidersHorizontal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { animationsConfig } from "@/config/animations";
 import Container from "@/components/ui/Container";
@@ -31,8 +31,8 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
     const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
     let percentage = (x / rect.width) * 100;
-    if (percentage < 0) percentage = 0;
-    if (percentage > 100) percentage = 100;
+    if (percentage < 5) percentage = 5;
+    if (percentage > 95) percentage = 95;
     setSliderPosition(percentage);
   }, []);
 
@@ -47,7 +47,7 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
   };
 
   return (
-    <section id="transformations" className="py-20 bg-bg-base relative overflow-hidden border-b border-border-theme/40">
+    <section id="transformations" className="py-24 bg-bg-base relative overflow-hidden border-b border-border-theme/40">
       <Container>
         {/* Section Header */}
         <motion.div
@@ -59,27 +59,27 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
         >
           <motion.div
             variants={animationsConfig.fadeInUp}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-theme bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-wider mb-4 font-bold"
           >
-            <Sparkles className="w-3.5 h-3.5 text-accent" />
-            Treatment Results
+            <Sparkles className="w-4 h-4 text-accent animate-pulse" />
+            Verified Patient Outcomes
           </motion.div>
           <motion.h2
             variants={animationsConfig.fadeInUp}
-            className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-secondary tracking-tight mb-4"
           >
-            Smile Transformation Gallery
+            Smile Gallery Transformations
           </motion.h2>
           <motion.p
             variants={animationsConfig.fadeInUp}
-            className="text-base text-text-muted font-medium"
+            className="text-base sm:text-lg text-text-muted font-medium"
           >
-            Drag the interactive slider to compare before and after results from our clinical procedures.
+            Drag the handle left or right to compare real before and after treatment outcomes from our clinical procedures.
           </motion.p>
         </motion.div>
 
-        {/* Case selector buttons - Always synchronized */}
-        <div className="flex justify-center gap-2.5 mb-10 overflow-x-auto pb-2 scrollbar-none">
+        {/* Case Selector Buttons */}
+        <div className="flex justify-center gap-3 mb-8 overflow-x-auto pb-2 scrollbar-none">
           {config.transformations.map((t, idx) => {
             const isSelected = safeActiveIndex === idx;
             return (
@@ -89,7 +89,7 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
                   setActiveIndex(idx);
                   setSliderPosition(50);
                 }}
-                className={`px-5 py-2.5 rounded-theme text-xs font-bold tracking-wider transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                className={`px-5 py-3 rounded-theme text-xs font-extrabold tracking-wider transition-all duration-200 whitespace-nowrap cursor-pointer hover:scale-105 ${
                   isSelected
                     ? "bg-primary text-white shadow-md ring-2 ring-primary/30"
                     : "bg-bg-card text-text-muted hover:bg-primary/5 border border-border-theme"
@@ -101,7 +101,15 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
           })}
         </div>
 
-        {/* Comparison card slider */}
+        {/* Interactive Drag Guide */}
+        <div className="text-center mb-4">
+          <span className="inline-flex items-center gap-2 text-xs font-mono font-bold text-primary bg-primary/5 px-4 py-1.5 rounded-full border border-primary/15 animate-bounce shadow-sm">
+            <SlidersHorizontal className="w-4 h-4" />
+            ← Drag slider handle left or right to compare Before & After results →
+          </span>
+        </div>
+
+        {/* Comparison Card Slider - 100% Unclipped Badges */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -109,13 +117,13 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
           variants={animationsConfig.scaleUp}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-bg-card rounded-theme p-4 sm:p-5 shadow-premium border border-border-theme">
+          <div className="bg-bg-card rounded-theme p-4 sm:p-6 shadow-premium border border-border-theme hover:shadow-2xl transition-all duration-300">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCase.id}
-                initial={{ opacity: 0.8 }}
+                initial={{ opacity: 0.9 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0.8 }}
+                exit={{ opacity: 0.9 }}
                 transition={{ duration: 0.2 }}
                 ref={containerRef}
                 onMouseDown={() => setIsDragging(true)}
@@ -125,54 +133,58 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
                 onTouchStart={() => setIsDragging(true)}
                 onTouchEnd={() => setIsDragging(false)}
                 onTouchMove={handleTouchMove}
-                className="relative aspect-[16/10] w-full rounded-[calc(var(--border-radius)-0.25rem)] overflow-hidden select-none cursor-ew-resize touch-none shadow-inner bg-slate-100"
+                className="relative aspect-[16/10] w-full rounded-[calc(var(--border-radius)-0.25rem)] overflow-hidden select-none cursor-ew-resize touch-none shadow-inner bg-slate-900 border border-border-theme/60"
               >
-                {/* Before Layer */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${activeCase.beforeImage})` }}
-                >
-                  <span className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-theme bg-secondary/85 text-white font-mono text-xs uppercase tracking-wider backdrop-blur-sm font-bold">
-                    Before Treatment
+                {/* UNCLIPPED OVERLAY BADGES - ALWAYS VISIBLE AT TOP-LEFT & TOP-RIGHT */}
+                <div className="absolute top-4 left-4 z-30 pointer-events-none">
+                  <span className="px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white font-mono text-xs uppercase tracking-wider backdrop-blur-md font-extrabold shadow-lg border border-white/20">
+                    BEFORE TREATMENT
+                  </span>
+                </div>
+                <div className="absolute top-4 right-4 z-30 pointer-events-none">
+                  <span className="px-3.5 py-1.5 rounded-full bg-primary text-white font-mono text-xs uppercase tracking-wider backdrop-blur-md font-extrabold shadow-lg border border-white/20">
+                    AFTER RESULT
                   </span>
                 </div>
 
-                {/* After Layer */}
+                {/* Full Background Image: BEFORE */}
                 <div
                   className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${activeCase.beforeImage})` }}
+                />
+
+                {/* Clipped Top Image: AFTER */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center z-10 transition-none"
                   style={{
                     backgroundImage: `url(${activeCase.afterImage})`,
                     clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
                   }}
-                >
-                  <span className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-theme bg-primary/95 text-white font-mono text-xs uppercase tracking-wider backdrop-blur-sm font-bold">
-                    After Result
-                  </span>
-                </div>
+                />
 
-                {/* Slider Handle */}
+                {/* Vertical Slider Handle Line */}
                 <div
-                  className="absolute top-0 bottom-0 w-1 bg-white shadow-2xl z-20"
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_15px_rgba(0,0,0,0.6)] z-30"
                   style={{ left: `${sliderPosition}%` }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center shadow-xl border border-white">
-                    <MoveHorizontal className="w-4 h-4" />
+                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center shadow-2xl border-2 border-white hover:scale-110 active:scale-95 transition-transform">
+                    <MoveHorizontal className="w-5 h-5 text-white" />
                   </div>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Details & Action */}
-            <div className="mt-6 grid sm:grid-cols-12 gap-6 items-center border-t border-border-theme pt-5">
+            {/* Details & Direct Action CTA */}
+            <div className="mt-6 grid sm:grid-cols-12 gap-6 items-center border-t border-border-theme pt-6">
               <div className="sm:col-span-8">
-                <div className="flex items-center gap-2 text-xs font-mono text-primary font-bold uppercase tracking-wider mb-2">
-                  <CheckCircle2 className="w-4 h-4 text-accent" />
+                <div className="flex items-center gap-2 text-xs font-mono text-primary font-extrabold uppercase tracking-wider mb-2">
+                  <CheckCircle2 className="w-4.5 h-4.5 text-accent shrink-0" />
                   <span>Procedure: {activeCase.treatment} ({activeCase.duration})</span>
                 </div>
-                <blockquote className="text-sm italic text-text-muted leading-relaxed font-sans font-medium">
+                <blockquote className="text-base italic text-text-main leading-relaxed font-sans font-medium">
                   &ldquo;{activeCase.patientQuote}&rdquo;
                 </blockquote>
-                <p className="text-xs font-extrabold text-secondary mt-1.5">
+                <p className="text-sm font-extrabold text-secondary mt-2">
                   — Treated by {activeCase.doctorName}
                 </p>
               </div>
@@ -183,6 +195,7 @@ export default function SmileTransformation({ config, onOpenBooking }: SmileTran
                   size="md"
                   onClick={() => onOpenBooking(activeCase.treatment)}
                   icon={<Sparkles className="w-4 h-4" />}
+                  className="w-full sm:w-auto shadow-md hover:scale-105 transition-transform font-bold"
                 >
                   Schedule Similar Care
                 </Button>

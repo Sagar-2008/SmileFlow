@@ -1,11 +1,13 @@
-import type { NavItem } from "@/types/site";
+export interface NavLink {
+  label: string;
+  href: string;
+}
 
-export const navigationConfig: NavItem[] = [
-  { label: "Treatments", href: "#services" },
-  { label: "Smile Gallery", href: "#transformations" },
-  { label: "Cost Estimator", href: "#calculator" },
-  { label: "Our Specialists", href: "#doctors" },
-  { label: "Patient Comfort", href: "#experience" },
-  { label: "Patient Reviews", href: "#reviews" },
+export const navigationConfig: NavLink[] = [
+  { label: "Services", href: "#services" },
+  { label: "Gallery", href: "#transformations" },
+  { label: "EMI Calculator", href: "#calculator" },
+  { label: "Doctors", href: "#doctors" },
+  { label: "Reviews", href: "#testimonials" },
   { label: "FAQ", href: "#faq" },
 ];

@@ -1,31 +1,20 @@
 import type { Variants } from "framer-motion";
 
-export interface AnimationPresets {
-  fadeInUp: Variants;
-  fadeIn: Variants;
-  scaleUp: Variants;
-  staggerContainer: Variants;
-  slideInLeft: Variants;
-}
-
-export const animationsConfig: AnimationPresets = {
+export const animationsConfig: Record<string, Variants> = {
   fadeInUp: {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   },
   fadeIn: {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
+    visible: { opacity: 1, transition: { duration: 0.4 } },
   },
   scaleUp: {
-    hidden: { opacity: 0, scale: 0.96 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
@@ -33,19 +22,28 @@ export const animationsConfig: AnimationPresets = {
     },
   },
   staggerContainer: {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.12,
+        delayChildren: 0.05,
       },
     },
   },
-  slideInLeft: {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+  hoverScale: {
+    rest: { scale: 1 },
+    hover: {
+      scale: 1.04,
+      transition: { duration: 0.2, ease: "easeOut" },
+    },
+    tap: { scale: 0.96 },
+  },
+  cardHover: {
+    rest: { y: 0 },
+    hover: {
+      y: -6,
+      transition: { duration: 0.25, ease: "easeOut" },
     },
   },
 };

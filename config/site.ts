@@ -10,7 +10,7 @@ import { doctorsConfig } from "./doctors";
 import { reviewsConfig } from "./reviews";
 import { faqConfig } from "./faq";
 
-// Combine servicesConfig and pricingConfig dynamically
+// Map services with pricing configuration dynamically
 const fullyMappedServices: Service[] = servicesConfig.map((service) => {
   const priceData = pricingConfig[service.id] || {
     priceRange: "Contact for pricing",
@@ -24,9 +24,14 @@ const fullyMappedServices: Service[] = servicesConfig.map((service) => {
 });
 
 export const siteConfig: ClinicConfig = {
-  ...brandingConfig,
-  id: "evergreen-dental",
-  url: "https://evergreendental.com",
+  id: "apex-dental",
+  name: brandingConfig.clinicName,
+  shortName: brandingConfig.shortName,
+  url: "https://apexdental.in",
+  tagline: brandingConfig.tagline,
+  description: brandingConfig.description,
+  establishedYear: brandingConfig.establishedYear,
+  logo: brandingConfig.logo,
   contact: contactConfig,
   theme: themeConfig,
   hero: heroConfig,
